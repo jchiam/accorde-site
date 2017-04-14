@@ -1,10 +1,12 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  context: __dirname,
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
   resolve: {
@@ -25,9 +27,23 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',
-      filename: 'index.html',
+      template: 'src/index.ejs',
       inject: 'body'
-    })
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      comments: false,
+      compress: {
+        unused: true,
+        dead_code: true,
+        warnings: false,
+        drop_debugger: true,
+        conditionals: true,
+        evaluate: true,
+        drop_console: true,
+        sequences: true,
+        booleans: true
+      }
+    }),
+    new webpack.optimize.AggressiveMergingPlugin()
   ]
 }

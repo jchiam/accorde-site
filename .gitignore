@@ -5,9 +5,10 @@ node_modules
 coverage
 
 # production
-public/bundle.js
+dist
 
 # misc
 .DS_Store
 .env
 npm-debug.log
+firebase-debug.log
