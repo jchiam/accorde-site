@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const DotenvPlugin = require('webpack-dotenv-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -27,11 +28,15 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new DotenvPlugin({
+      sample: './.env.example',
+      path: './.env'
+    }),
     new HtmlWebpackPlugin({
       template: 'src/index.ejs',
       inject: 'body'
     })
-  ]
+  ],
+  node: { fs: 'empty' }
 };
