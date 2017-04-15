@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const DotenvPlugin = require('webpack-dotenv-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -26,6 +27,10 @@ module.exports = {
     ]
   },
   plugins: [
+    new DotenvPlugin({
+      sample: './.env.example',
+      path: './.env'
+    }),
     new HtmlWebpackPlugin({
       template: 'src/index.ejs',
       inject: 'body'
@@ -45,5 +50,6 @@ module.exports = {
       }
     }),
     new webpack.optimize.AggressiveMergingPlugin()
-  ]
+  ],
+  node: { fs: 'empty' }
 };
