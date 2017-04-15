@@ -6,8 +6,8 @@
   "author": "Jonathan Chiam",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --hot",
-    "build": "NODE_ENV=production webpack -p --progress --colors",
+    "start": "webpack-dev-server --hot --progress",
+    "build": "webpack --config webpack.prod.config.js --progress -p",
     "stage": "yarn build && firebase serve",
     "deploy": "yarn lint && yarn build && firebase deploy",
     "lint": "eslint src --ext .jsx",
