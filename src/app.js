@@ -5,13 +5,28 @@ import ReactDOM from 'react-dom';
 import { Router } from 'react-router';
 import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
+import { AppContainer } from 'react-hot-loader';
 
 import store from 'store';
 import routes from 'routes';
 
-ReactDOM.render(
-  <Provider store={store}>
-    <Router children={routes} history={createBrowserHistory()} />
-  </Provider>,
-  document.getElementById('accorde-root')
-);
+const isProduction = process.env.NODE_ENV === 'production';
+
+if (isProduction || !!module.hot) {
+  ReactDOM.render(
+    <Provider store={store}>
+      <Router children={routes} history={createBrowserHistory()} />
+    </Provider>,
+    document.getElementById('accorde-root')
+  );
+} else {
+  ReactDOM.render(
+    <AppContainer>
+      <Provider store={store}>
+        <Router children={routes} history={createBrowserHistory()} key={Math.random()} />
+      </Provider>
+    </AppContainer>,
+    document.getElementById('accorde-root')
+  );
+  module.hot.accept();
+}
