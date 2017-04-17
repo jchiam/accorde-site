@@ -50,6 +50,5 @@ module.exports = {
       }
     }),
     new webpack.optimize.AggressiveMergingPlugin()
-  ],
-  node: { fs: 'empty' }
+  ]
 };
