@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const DotenvPlugin = require('webpack-dotenv-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   context: __dirname,
@@ -23,6 +24,13 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: 'babel-loader'
+      },
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader', 'import-glob-loader']
+        })
       }
     ]
   },
@@ -37,6 +45,5 @@ module.exports = {
       template: 'src/index.ejs',
       inject: 'body'
     })
-  ],
-  node: { fs: 'empty' }
+  ]
 };
