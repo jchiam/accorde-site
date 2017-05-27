@@ -1,4 +1,4 @@
-$background-color: #FFF;
+$background-color: #fff;
 
 $body-padding: 15px;
 $header-height: 100px;
@@ -19,6 +19,13 @@ button {
   display: flex;
   height: $header-height;
   justify-content: space-between;
+}
+
+.music {
+  align-items: center;
+  display: flex;
+  height: calc(100vh - 100px - 30px);   // - $header-height - $body-padding
+  justify-content: center;
 }
 
 .contact {

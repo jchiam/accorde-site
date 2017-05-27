@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import music from 'reducers/music';
 
 const combinedReducer = combineReducers({
-  home: null
+  music
 });
 
 export default combinedReducer;
