@@ -1,0 +1,14 @@
+$background-color: #FFF;
+
+button {
+  background: $background-color;
+  border: 0;
+  outline: none;
+}
+
+.header {
+  align-items: flex-end;
+  display: flex;
+  height: 100px;
+  justify-content: space-between;
+}

@@ -9,7 +9,8 @@ module.exports = {
   entry: ['react-hot-loader/patch', './src/app.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -34,6 +35,9 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    historyApiFallback: true
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
@@ -41,6 +45,7 @@ module.exports = {
       sample: './.env.example',
       path: './.env'
     }),
+    new ExtractTextPlugin("styles.css"),
     new HtmlWebpackPlugin({
       template: 'src/index.ejs',
       inject: 'body'

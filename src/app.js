@@ -11,6 +11,8 @@ import * as firebase from 'firebase';
 import store from 'store';
 import routes from 'routes';
 
+import 'stylesheet.scss';
+
 // check environment
 const isProduction = process.env.NODE_ENV === 'production';
 
