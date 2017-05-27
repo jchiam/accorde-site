@@ -1,5 +1,13 @@
 $background-color: #FFF;
 
+$body-padding: 15px;
+$header-height: 100px;
+
+body {
+  margin: 0;
+  padding: 15px;
+}
+
 button {
   background: $background-color;
   border: 0;
@@ -9,6 +17,26 @@ button {
 .header {
   align-items: flex-end;
   display: flex;
-  height: 100px;
+  height: $header-height;
   justify-content: space-between;
+}
+
+.contact {
+  display: flex;
+  height: calc(100vh - 100px - 30px);   // - $header-height - $body-padding
+  justify-content: space-between;
+}
+
+.contact-info {
+  align-items: flex-end;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 30px;
+}
+
+.contact-photo {
+  background-color: grey;
+  flex: 1;
 }
