@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "accorde-site"
+    "default": "accorde-site",
+    "staging": "accorde-site-staging"
   }
 }
