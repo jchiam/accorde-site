@@ -31,6 +31,9 @@ pipeline {
             dir('dist') {
                 deleteDir()
             }
+            withCredentials([string(credentialsId: 'slack-token', variable: 'SLACK_TOKEN')]) {
+                slackSend channel: '#it_dev', color: 'good', message: 'Build succeeded!', token: '$SLACK_TOKEN'
+            }
         }
     }
 }
