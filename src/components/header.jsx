@@ -1,29 +1,16 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router';
+import { goToAnchor } from 'react-scrollable-anchor';
 
-class Header extends Component {
-  navigateTo(path) {
-    const { history } = this.props;
-    return () => history.push(path);
-  }
-
+export default class Header extends Component {
   render() {
     return (
       <div className="header">
-        <div>logo here</div>
-        <button onClick={this.navigateTo('/')}>Home</button>
-        <button onClick={this.navigateTo('/about')}>About</button>
-        <button onClick={this.navigateTo('/music')}>Music</button>
-        <button onClick={this.navigateTo('/gallery')}>Gallery</button>
-        <button onClick={this.navigateTo('/contact')}>Contact</button>
+        <button onClick={() => goToAnchor('home')}>Home</button>
+        <button onClick={() => goToAnchor('about')}>About</button>
+        <button onClick={() => goToAnchor('music')}>Music</button>
+        <button onClick={() => goToAnchor('gallery')}>Gallery</button>
+        <button onClick={() => goToAnchor('contact')}>Contact</button>
       </div>
     );
   }
 }
-
-Header.propTypes = {
-  history: PropTypes.object.isRequired  // eslint-disable-line react/forbid-prop-types
-};
-
-export default withRouter(Header);
