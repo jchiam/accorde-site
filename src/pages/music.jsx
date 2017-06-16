@@ -32,7 +32,7 @@ class MusicPage extends Component {
         </div>
       );
     }
-    return null;
+    return <div className="music" />;
   }
 }
 
