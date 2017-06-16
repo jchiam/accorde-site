@@ -31,6 +31,7 @@ pipeline {
             dir('dist') {
                 deleteDir()
             }
+            slackSend color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> succeeded!\nPlease verify at $STAGING_URL"
             slackSend channel: '#accorde_pubs', color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> succeeded!\nPlease verify at $STAGING_URL"
         }
         failure {
