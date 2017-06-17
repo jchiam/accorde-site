@@ -14,11 +14,12 @@ class MusicPage extends Component {
 
   render() {
     const { video, dataState } = this.props;
+    const screenWidth = window.innerWidth - (2 * 20); // left right padding of 20px
+    const screenHeight = screenWidth / (16 / 9);      // 16:9 aspect ratio
     const opts = {
-      height: '390',
-      width: '640',
+      height: screenHeight,
+      width: screenWidth,
       playerVars: { // https://developers.google.com/youtube/player_parameters
-        autoplay: 1,
         color: 'white',
         rel: 0,
         showinfo: 0
