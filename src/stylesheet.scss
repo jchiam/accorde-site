@@ -1,7 +1,8 @@
 $background-color: #fff;
+$highlight-color: #4990E2;
 
-$header-height: 100px;
-$page-height: calc(100vh - 100px);
+$header-height: 80px;
+$page-height: calc(100vh - 80px);
 
 body {
   margin: 0;
@@ -27,10 +28,21 @@ button {
   position: fixed;
   top: 0;
   width: calc(100vw - 200px);
+
+  .header-button:hover {
+    color: $highlight-color;
+  }
 }
 
 .home {
   height: $page-height;
+
+  .logo {
+    display: block;
+    margin: auto;
+    max-height: $page-height;
+    width: auto;
+  }
 }
 
 .about {
