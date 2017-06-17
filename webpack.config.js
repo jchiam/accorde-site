@@ -45,7 +45,7 @@ module.exports = {
       sample: './.env.example',
       path: './.env'
     }),
-    new ExtractTextPlugin("styles.css"),
+    new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
       template: 'src/index.ejs',
       inject: 'body'
