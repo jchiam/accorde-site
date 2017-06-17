@@ -79,3 +79,18 @@ button {
   background-color: grey;
   flex: 1;
 }
+
+/* For mobile phones: */
+@media only screen and (max-width: 768px) {
+  .header {
+    padding: 0 50px;
+    width: calc(100vw - 100px);
+  }
+
+  .home {
+    .logo {
+      height: auto;
+      max-width: 100vw;
+    }
+  }
+}
