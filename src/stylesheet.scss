@@ -31,6 +31,13 @@ button {
 
 .home {
   height: $page-height;
+
+  .logo {
+    display: block;
+    margin: auto;
+    max-height: $page-height;
+    width: auto;
+  }
 }
 
 .about {

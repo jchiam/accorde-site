@@ -4,7 +4,7 @@ export default class Home extends Component {
   render() {
     return (
       <div className="home">
-        This is Accordé Guitar Ensemble!
+        <img className="logo" src={process.env.LOGO} alt="logo" />
       </div>
     );
   }
