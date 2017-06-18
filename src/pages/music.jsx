@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import VisibilitySensor from 'react-visibility-sensor';
 import Youtube from 'react-youtube';
 
@@ -14,11 +15,11 @@ class MusicPage extends Component {
     let youtubeWidth;
     let youtubeHeight;
 
-    if (screenWidth < screenHeight) {
-      youtubeWidth = screenWidth - (2 * 20);          // left right padding of 20px
+    if (screenWidth / (16 / 9) < screenWidth) {
+      youtubeWidth = screenWidth - (2 * 50);          // left right padding of 50px
       youtubeHeight = screenWidth / (16 / 9);         // 16:9 aspect ratio
     } else {
-      youtubeHeight = screenHeight - 80 - (2 * 20);   // top down padding of 20px and height height
+      youtubeHeight = screenHeight - 80 - (2 * 50);   // top down padding of 50px and height height
       youtubeWidth = screenHeight / (9 / 16);         // 16:9 aspect ratio
     }
 
@@ -55,15 +56,21 @@ class MusicPage extends Component {
   }
 
   render() {
-    const { video, dataState } = this.props;
+    const { video, title, dataState } = this.props;
     const opts = MusicPage.generateYoutubeOptions();
 
     if (dataState === DataStates.Fetched) {
       return (
         <div className="music">
-          <VisibilitySensor partialVisibility onChange={visible => this.handlePlayerPlayback(visible)}>
-            <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
-          </VisibilitySensor>
+          <div>
+            <div className="player-title">{title}</div>
+            <VisibilitySensor partialVisibility onChange={visible => this.handlePlayerPlayback(visible)}>
+              <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
+            </VisibilitySensor>
+            <div className="player-more-info">
+              <button onClick={() => window.open(process.env.YOUTUBE_CHANNEL)}>Find more at</button>
+            </div>
+          </div>
         </div>
       );
     }
@@ -73,6 +80,7 @@ class MusicPage extends Component {
 
 MusicPage.propTypes = {
   video: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   dataState: PropTypes.string.isRequired,
   fetchVideo: PropTypes.func.isRequired
 };
@@ -80,6 +88,7 @@ MusicPage.propTypes = {
 function mapStateToProps(state) {
   return {
     video: state.music.video,
+    title: state.music.title,
     dataState: state.music.dataState
   };
 }
