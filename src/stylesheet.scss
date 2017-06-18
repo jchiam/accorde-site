@@ -54,6 +54,14 @@ button {
   display: flex;
   height: $page-height;
   justify-content: center;
+
+  .player-title {
+    margin-bottom: 10px;
+  }
+
+  .player-more-info {
+    text-align: right;
+  }
 }
 
 .gallery {

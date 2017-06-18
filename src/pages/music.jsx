@@ -7,19 +7,26 @@ import Youtube from 'react-youtube';
 import { fetchRandomVideo } from 'actions/youtube';
 import DataStates from 'constants/dataStates';
 
+const YOUTUBE_ASPECT_RATIO = 16 / 9;
+
 class MusicPage extends Component {
   static generateYoutubeOptions() {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
+    const headerHeight = 80;
+    const screenWidth = window.innerWidth - 100;                    // remove 100px as padding buffer
+    const screenHeight = window.innerHeight - headerHeight - 100;   // remove 100px as padding buffer
+    const screenAspectRatio = screenWidth / screenHeight;
+
     let youtubeWidth;
     let youtubeHeight;
 
-    if (screenWidth < screenHeight) {
-      youtubeWidth = screenWidth - (2 * 20);          // left right padding of 20px
-      youtubeHeight = screenWidth / (16 / 9);         // 16:9 aspect ratio
+    // height dependent
+    if (screenAspectRatio > YOUTUBE_ASPECT_RATIO) {
+      youtubeHeight = screenHeight;
+      youtubeWidth = youtubeHeight * YOUTUBE_ASPECT_RATIO;
+    // width dependent
     } else {
-      youtubeHeight = screenHeight - 80 - (2 * 20);   // top down padding of 20px and height height
-      youtubeWidth = screenHeight / (9 / 16);         // 16:9 aspect ratio
+      youtubeWidth = screenWidth;
+      youtubeHeight = screenWidth / YOUTUBE_ASPECT_RATIO;
     }
 
     return {
@@ -55,15 +62,21 @@ class MusicPage extends Component {
   }
 
   render() {
-    const { video, dataState } = this.props;
+    const { video, title, dataState } = this.props;
     const opts = MusicPage.generateYoutubeOptions();
 
     if (dataState === DataStates.Fetched) {
       return (
         <div className="music">
-          <VisibilitySensor partialVisibility onChange={visible => this.handlePlayerPlayback(visible)}>
-            <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
-          </VisibilitySensor>
+          <div>
+            <div className="player-title">{title}</div>
+            <VisibilitySensor partialVisibility onChange={visible => this.handlePlayerPlayback(visible)}>
+              <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
+            </VisibilitySensor>
+            <div className="player-more-info">
+              <button onClick={() => window.open(process.env.YOUTUBE_CHANNEL)}>Find more at</button>
+            </div>
+          </div>
         </div>
       );
     }
@@ -73,6 +86,7 @@ class MusicPage extends Component {
 
 MusicPage.propTypes = {
   video: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   dataState: PropTypes.string.isRequired,
   fetchVideo: PropTypes.func.isRequired
 };
@@ -80,6 +94,7 @@ MusicPage.propTypes = {
 function mapStateToProps(state) {
   return {
     video: state.music.video,
+    title: state.music.title,
     dataState: state.music.dataState
   };
 }

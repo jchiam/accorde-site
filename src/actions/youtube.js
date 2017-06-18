@@ -13,16 +13,26 @@ export function fetchRandomVideo() {
         params: {
           key: process.env.GOOGLE_API_KEY,
           playlistId: process.env.YOUTUBE_UPLOADS_ID,
-          part: 'contentDetails'
+          part: 'contentDetails,snippet'
         }
       })
       .then(response => response.data)
-      .then(data => {
+      .then((data) => {
         const numVideos = data.items.length;
         const randomIndex = Math.floor(Math.random() * numVideos);
         const randomVideoId = data.items[randomIndex].contentDetails.videoId;
+        let randomVideoTitle = data.items[randomIndex].snippet.title;
 
-        dispatch({ type: types.FETCH_YOUTUBE_VIDEO_SUCCESS, video: randomVideoId });
+        // process video title
+        if (randomVideoTitle.includes('|')) {
+          randomVideoTitle = randomVideoTitle.split('|')[0];
+        }
+
+        dispatch({
+          type: types.FETCH_YOUTUBE_VIDEO_SUCCESS,
+          video: randomVideoId,
+          title: randomVideoTitle
+        });
       });
   };
 }

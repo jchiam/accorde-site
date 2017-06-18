@@ -3,6 +3,7 @@ import DataStates from 'constants/dataStates';
 
 const initialState = {
   video: '',
+  title: '',
   dataState: DataStates.Unfetched
 };
 
@@ -17,6 +18,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         video: action.video,
+        title: action.title,
         dataState: DataStates.Fetched
       };
     case types.FETCH_YOUTUBE_VIDEO_ERROR:
