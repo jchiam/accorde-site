@@ -1,26 +1,32 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import VisibilitySensor from 'react-visibility-sensor';
 import Youtube from 'react-youtube';
 
 import { fetchRandomVideo } from 'actions/youtube';
 import DataStates from 'constants/dataStates';
 
+const YOUTUBE_ASPECT_RATIO = 16 / 9;
+
 class MusicPage extends Component {
   static generateYoutubeOptions() {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
+    const headerHeight = 80;
+    const screenWidth = window.innerWidth - 100;                    // remove 100px as padding buffer
+    const screenHeight = window.innerHeight - headerHeight - 100;   // remove 100px as padding buffer
+    const screenAspectRatio = screenWidth / screenHeight;
+
     let youtubeWidth;
     let youtubeHeight;
 
-    if (screenWidth / (16 / 9) < screenWidth) {
-      youtubeWidth = screenWidth - (2 * 50);          // left right padding of 50px
-      youtubeHeight = screenWidth / (16 / 9);         // 16:9 aspect ratio
+    // height dependent
+    if (screenAspectRatio > YOUTUBE_ASPECT_RATIO) {
+      youtubeHeight = screenHeight;
+      youtubeWidth = youtubeHeight * YOUTUBE_ASPECT_RATIO;
+    // width dependent
     } else {
-      youtubeHeight = screenHeight - 80 - (2 * 50);   // top down padding of 50px and height height
-      youtubeWidth = screenHeight / (9 / 16);         // 16:9 aspect ratio
+      youtubeWidth = screenWidth;
+      youtubeHeight = screenWidth / YOUTUBE_ASPECT_RATIO;
     }
 
     return {
