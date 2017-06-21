@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Pre-build') {
             steps {
-                slackSend color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> started!"
+                slackSend teamDomain: 'accordege', channel: '#it_dev', color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> started!", tokenCredentialId: 'accorde-slack-token'
                 sh 'make prebuild'
             }
         }
@@ -31,14 +31,14 @@ pipeline {
             dir('dist') {
                 deleteDir()
             }
-            slackSend color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> succeeded!\nPlease verify at $STAGING_URL"
-            slackSend channel: '#accorde_pubs', color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> succeeded!\nPlease verify at $STAGING_URL"
+            slackSend teamDomain: 'accordege', channel: '#it_dev', color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> succeeded!\nPlease verify at $STAGING_URL", tokenCredentialId: 'accorde-slack-token'
+            slackSend teamDomain: 'accordege', channel: '#accorde_pubs', color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> succeeded!\nPlease verify at $STAGING_URL", tokenCredentialId: 'accorde-slack-token'
         }
         failure {
-            slackSend color: 'danger', message: "Build <$BUILD_URL|$BUILD_NUMBER> failed."
+            slackSend teamDomain: 'accordege', channel: '#it_dev', color: 'danger', message: "Build <$BUILD_URL|$BUILD_NUMBER> failed.", tokenCredentialId: 'accorde-slack-token'
         }
         unstable {
-            slackSend color: 'warning', message: "Build <$BUILD_URL|$BUILD_NUMBER> is unstable."
+            slackSend teamDomain: 'accordege', channel: '#it_dev', color: 'warning', message: "Build <$BUILD_URL|$BUILD_NUMBER> is unstable.", tokenCredentialId: 'accorde-slack-token'
         }
     }
 }
