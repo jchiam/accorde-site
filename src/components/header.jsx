@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { goToAnchor } from 'react-scrollable-anchor';
+import { goToAnchor, removeHash } from 'react-scrollable-anchor';
 
 export default class Header extends Component {
   static renderHeaderButton(anchor, label) {
     return (
       <button
         className="header-button"
-        onClick={() => goToAnchor(anchor)}
+        onClick={() => { removeHash(); goToAnchor(anchor); }}
       >
         {label}
       </button>
