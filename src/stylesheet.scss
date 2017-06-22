@@ -35,13 +35,15 @@ button {
 }
 
 .home {
+  display: flex;
   height: $page-height;
+  justify-content: center;
 
   .logo {
     display: block;
     margin: auto;
-    max-height: $page-height;
-    width: auto;
+    height: auto;
+    max-width: 100vw;
   }
 }
 
