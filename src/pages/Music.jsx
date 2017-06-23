@@ -6,6 +6,7 @@ import Youtube from 'react-youtube';
 
 import { fetchRandomVideo } from 'actions/youtube';
 import DataStates from 'constants/dataStates';
+import YoutubeLogo from 'images/youtube.svg';
 
 const YOUTUBE_ASPECT_RATIO = 16 / 9;
 
@@ -74,7 +75,10 @@ class MusicPage extends Component {
               <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
             </VisibilitySensor>
             <div className="player-more-info">
-              <button onClick={() => window.open(process.env.YOUTUBE_CHANNEL)}>Find more at</button>
+              <button onClick={() => window.open(process.env.YOUTUBE_CHANNEL)}>
+                Find more at
+                <YoutubeLogo />
+              </button>
             </div>
           </div>
         </div>
