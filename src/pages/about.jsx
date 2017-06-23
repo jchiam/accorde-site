@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
+import PageLoader from 'components/loader';
 import { fetchAboutUs } from 'actions/firebase';
 import DataStates from 'constants/dataStates';
 
@@ -16,7 +17,21 @@ class AboutPage extends Component {
     fetchContents();
   }
 
-  renderEvents() {
+  renderStory() {
+    const { story, photos } = this.props;
+    /* eslint-disable react/no-danger */
+    return (
+      <div className="container" style={{ backgroundImage: `url(${photos.story})` }}>
+        <div className="story" >
+          <div className="about-title">OUR STORY</div>
+          <div dangerouslySetInnerHTML={{ __html: story }} />
+        </div>
+      </div>
+    );
+    /* eslint-enable react/no-danger */
+  }
+
+  renderEventsTable() {
     const { events } = this.props;
     const eventRows = [];
 
@@ -42,33 +57,32 @@ class AboutPage extends Component {
     return eventRows;
   }
 
-  render() {
-    const { story, dataState } = this.props;
-    if (dataState === DataStates.Fetched) {
-      /* eslint-disable react/no-danger */
-      return (
-        <div className="about">
-          <div className="container">
-            <div className="story">
-              <div>OUR STORY</div>
-              <div dangerouslySetInnerHTML={{ __html: story }} />
-            </div>
-          </div>
-          <div className="container">
-            <div className="events">
-              <div className="pane">EVENT HIGHTLIGHTS</div>
-              <div className="pane">
-                <table className="events-table">
-                  <tbody>{this.renderEvents()}</tbody>
-                </table>
-              </div>
-            </div>
+  renderEvents() {
+    const { photos } = this.props;
+    return (
+      <div className="container" style={{ backgroundImage: `url(${photos.events})` }}>
+        <div className="events">
+          <div className="pane about-title">EVENT HIGHTLIGHTS</div>
+          <div className="pane">
+            <table className="events-table">
+              <tbody>{this.renderEventsTable()}</tbody>
+            </table>
           </div>
         </div>
-      );
-      /* eslint-enable react/no-danger */
-    }
-    return <div className="story" />;
+      </div>
+    );
+  }
+
+  render() {
+    const { dataState } = this.props;
+    return (
+      <div className="about">
+        <PageLoader loaded={dataState === DataStates.Fetched}>
+          {this.renderStory()}
+        </PageLoader>
+        {this.renderEvents()}
+      </div>
+    );
   }
 }
 
@@ -80,6 +94,10 @@ AboutPage.propTypes = {
       sub: PropTypes.string
     }))
   ).isRequired,
+  photos: PropTypes.shape({
+    story: PropTypes.string,
+    events: PropTypes.string
+  }).isRequired,
   dataState: PropTypes.string.isRequired,
   fetchContents: PropTypes.func.isRequired
 };
@@ -88,6 +106,7 @@ function mapStateToProps(state) {
   return {
     story: state.about.story,
     events: state.about.events,
+    photos: state.about.photos,
     dataState: state.about.dataState
   };
 }

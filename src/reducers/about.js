@@ -4,6 +4,7 @@ import DataStates from 'constants/dataStates';
 const initialState = {
   story: '',
   events: {},
+  photos: {},
   dataState: DataStates.Unfetched
 };
 
@@ -14,13 +15,19 @@ export default function (state = initialState, action) {
         ...state,
         dataState: DataStates.Fetching
       };
-    case types.FETCH_ABOUT_US_SUCCESS:
+    case types.FETCH_ABOUT_US_SUCCESS: {
+      const photos = {
+        story: action.photos['our-story'],
+        events: action.photos['event-highlights']
+      };
       return {
         ...state,
         story: action.story,
         events: action.events,
+        photos,
         dataState: DataStates.Fetched
       };
+    }
     case types.FETCH_ABOUT_US_ERROR:
       return {
         ...state,

@@ -18,6 +18,10 @@ button {
   margin-top: $header-height;
 }
 
+.loader {
+  height: $page-height; 
+}
+
 .header {
   align-items: flex-end;
   background: $background-color;
@@ -63,21 +67,31 @@ button {
 }
 
 .about {
-  padding: 0 50px;
+  min-height: $page-height;
 
   .container {
     align-items: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     height: $page-height;
   }
 
+  .about-title {
+    color: $highlight-color;
+  }
+
   .story {
+    color: white;
+    padding: 0 50px;
     text-align: center;
   }
 
   .events {
     display: flex;
     justify-content: center;
+    padding: 0 100px;
     width: 100%;
     
     .pane {
@@ -97,8 +111,9 @@ button {
     }
 
     .event-cell {
-      border-top: 2px solid black;
-      border-bottom: 2px solid black;
+      border-top: 2px solid white;
+      border-bottom: 2px solid white;
+      color: white;
       padding: 20px 10px;
       text-align: center;
       word-wrap: normal;
