@@ -145,21 +145,27 @@ button {
 }
 
 .contact {
-  display: flex;
   height: $page-height;
-  justify-content: space-between;
-}
+  padding: 0 50px;
 
-.contact-info {
-  align-items: flex-end;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: center;
-  padding-right: 30px;
-}
+  .container {
+    align-items: center;
+    display: flex;
+    height: $page-height;
+    justify-content: space-between;
+  }
 
-.contact-photo {
-  background-color: grey;
-  flex: 1;
+  .contact-info {
+    width: 40%;
+    padding-right: 30px;
+    text-align: right;
+  }
+
+  .contact-photo {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 80%;
+    width: 60%
+  }
 }
