@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import urlEncode from 'urlencode';
 
 import PageLoader from 'components/PageLoader';
 import { fetchContactUs } from 'actions/firebase';
+import { generateImageUrl } from 'utils';
 import DataStates from 'constants/dataStates';
+
 import FacebookIcon from 'images/facebook-round.svg';
 import YoutubeIcon from 'images/youtube-round.svg';
 
@@ -16,6 +19,7 @@ class ContactPage extends Component {
 
   render() {
     const { photo, dataState } = this.props;
+    const photoURL = generateImageUrl(urlEncode(photo), 70);
     return (
       <div className="contact">
         <PageLoader loaded={dataState === DataStates.Fetched}>
@@ -26,7 +30,7 @@ class ContactPage extends Component {
               <FacebookIcon className="contact-icon" onClick={() => window.open(process.env.FACEBOOK_PAGE)} />
               <YoutubeIcon onClick={() => window.open(process.env.YOUTUBE_CHANNEL)} />
             </div>
-            <div className="contact-photo" style={{ backgroundImage: `url(${photo})` }} />
+            <div className="contact-photo" style={{ backgroundImage: `url(${photoURL})` }} />
           </div>
         </PageLoader>
       </div>
