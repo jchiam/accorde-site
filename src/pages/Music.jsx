@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import VisibilitySensor from 'react-visibility-sensor';
 import Youtube from 'react-youtube';
 
+import PageLoader from 'components/PageLoader';
 import { fetchRandomVideo } from 'actions/youtube';
 import DataStates from 'constants/dataStates';
 import YoutubeLogo from 'images/youtube.svg';
@@ -66,25 +67,22 @@ class MusicPage extends Component {
     const { video, title, dataState } = this.props;
     const opts = MusicPage.generateYoutubeOptions();
 
-    if (dataState === DataStates.Fetched) {
-      return (
-        <div className="music">
-          <div>
-            <div className="player-title">{title}</div>
-            <VisibilitySensor partialVisibility onChange={visible => this.handlePlayerPlayback(visible)}>
-              <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
-            </VisibilitySensor>
-            <div className="player-more-info">
-              <button onClick={() => window.open(process.env.YOUTUBE_CHANNEL)}>
-                Find more at
-                <YoutubeLogo />
-              </button>
-            </div>
+    return (
+      <div className="music">
+        <PageLoader loaded={dataState === DataStates.Fetched}>
+          <div className="player-title">{title}</div>
+          <VisibilitySensor partialVisibility onChange={visible => this.handlePlayerPlayback(visible)}>
+            <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
+          </VisibilitySensor>
+          <div className="player-more-info">
+            <button onClick={() => window.open(process.env.YOUTUBE_CHANNEL)}>
+              Find more at
+              <YoutubeLogo />
+            </button>
           </div>
-        </div>
-      );
-    }
-    return <div className="music" />;
+        </PageLoader>
+      </div>
+    );
   }
 }
 
