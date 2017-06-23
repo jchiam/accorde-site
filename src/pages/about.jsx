@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
+import PageLoader from 'components/loader';
 import { fetchAboutUs } from 'actions/firebase';
 import DataStates from 'constants/dataStates';
 
@@ -28,22 +29,6 @@ class AboutPage extends Component {
       </div>
     );
     /* eslint-enable react/no-danger */
-  }
-
-  renderEvents() {
-    const { photos } = this.props;
-    return (
-      <div className="container" style={{ backgroundImage: `url(${photos.events})` }}>
-        <div className="events">
-          <div className="pane about-title">EVENT HIGHTLIGHTS</div>
-          <div className="pane">
-            <table className="events-table">
-              <tbody>{this.renderEventsTable()}</tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   renderEventsTable() {
@@ -72,20 +57,30 @@ class AboutPage extends Component {
     return eventRows;
   }
 
+  renderEvents() {
+    const { photos } = this.props;
+    return (
+      <div className="container" style={{ backgroundImage: `url(${photos.events})` }}>
+        <div className="events">
+          <div className="pane about-title">EVENT HIGHTLIGHTS</div>
+          <div className="pane">
+            <table className="events-table">
+              <tbody>{this.renderEventsTable()}</tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { dataState } = this.props;
-    if (dataState === DataStates.Fetched) {
-      return (
-        <div className="about">
-          {this.renderStory()}
-          {this.renderEvents()}
-        </div>
-      );
-    }
     return (
       <div className="about">
-        <div className="container" />
-        <div className="container" />
+        <PageLoader loaded={dataState === DataStates.Fetched}>
+          {this.renderStory()}
+        </PageLoader>
+        {this.renderEvents()}
       </div>
     );
   }

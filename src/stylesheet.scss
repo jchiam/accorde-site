@@ -18,6 +18,10 @@ button {
   margin-top: $header-height;
 }
 
+.loader {
+  height: $page-height; 
+}
+
 .header {
   align-items: flex-end;
   background: $background-color;
@@ -63,6 +67,8 @@ button {
 }
 
 .about {
+  min-height: $page-height;
+
   .container {
     align-items: center;
     background-position: center;
