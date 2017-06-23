@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import PageLoader from 'components/PageLoader';
 import { fetchContactUs } from 'actions/firebase';
 import DataStates from 'constants/dataStates';
+import FacebookIcon from 'images/facebook-round.svg';
+import YoutubeIcon from 'images/youtube-round.svg';
 
 class ContactPage extends Component {
   componentDidMount() {
@@ -21,6 +23,8 @@ class ContactPage extends Component {
             <div className="contact-info">
               <p>GET IN TOUCH</p>
               <p>accordeguitar@gmail.com</p>
+              <FacebookIcon className="contact-icon" onClick={() => window.open(process.env.FACEBOOK_PAGE)} />
+              <YoutubeIcon onClick={() => window.open(process.env.YOUTUBE_CHANNEL)} />
             </div>
             <div className="contact-photo" style={{ backgroundImage: `url(${photo})` }} />
           </div>
