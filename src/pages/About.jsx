@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import PageLoader from 'components/loader';
+import PageLoader from 'components/PageLoader';
 import { fetchAboutUs } from 'actions/firebase';
 import DataStates from 'constants/dataStates';
 

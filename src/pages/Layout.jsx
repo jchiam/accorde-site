@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
 
-import Home from 'pages/home';
-import About from 'pages/about';
-import Music from 'pages/music';
-import Gallery from 'pages/gallery';
-import Contact from 'pages/contact';
+import Home from 'pages/Home';
+import About from 'pages/About';
+import Music from 'pages/Music';
+import Gallery from 'pages/Gallery';
+import Contact from 'pages/Contact';
 
 configureAnchors({ offset: -80 });
 

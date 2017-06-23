@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 
-import App from 'components/app';
-import Layout from 'pages/layout';
+import App from 'components/App';
+import Layout from 'pages/Layout';
 
 export default(
   <App>
