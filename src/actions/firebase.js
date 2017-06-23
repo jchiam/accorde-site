@@ -20,12 +20,14 @@ export function fetchAboutUs() {
 
     async.parallel({
       story: cb => database.ref('/story').once('value').then(snapshot => cb(null, snapshot.val())),
-      events: cb => database.ref('/events').once('value').then(snapshot => cb(null, snapshot.val()))
+      events: cb => database.ref('/events').once('value').then(snapshot => cb(null, snapshot.val())),
+      photos: cb => database.ref('/photos').once('value').then(snapshot => cb(null, snapshot.val()))
     }, (err, results) => {
       dispatch({
         type: types.FETCH_ABOUT_US_SUCCESS,
         story: results.story,
-        events: results.events
+        events: results.events,
+        photos: results.photos
       });
     });
   };

@@ -16,7 +16,37 @@ class AboutPage extends Component {
     fetchContents();
   }
 
+  renderStory() {
+    const { story, photos } = this.props;
+    /* eslint-disable react/no-danger */
+    return (
+      <div className="container" style={{ backgroundImage: `url(${photos.story})` }}>
+        <div className="story" >
+          <div className="about-title">OUR STORY</div>
+          <div dangerouslySetInnerHTML={{ __html: story }} />
+        </div>
+      </div>
+    );
+    /* eslint-enable react/no-danger */
+  }
+
   renderEvents() {
+    const { photos } = this.props;
+    return (
+      <div className="container" style={{ backgroundImage: `url(${photos.events})` }}>
+        <div className="events">
+          <div className="pane about-title">EVENT HIGHTLIGHTS</div>
+          <div className="pane">
+            <table className="events-table">
+              <tbody>{this.renderEventsTable()}</tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderEventsTable() {
     const { events } = this.props;
     const eventRows = [];
 
@@ -43,32 +73,21 @@ class AboutPage extends Component {
   }
 
   render() {
-    const { story, dataState } = this.props;
+    const { dataState } = this.props;
     if (dataState === DataStates.Fetched) {
-      /* eslint-disable react/no-danger */
       return (
         <div className="about">
-          <div className="container">
-            <div className="story">
-              <div>OUR STORY</div>
-              <div dangerouslySetInnerHTML={{ __html: story }} />
-            </div>
-          </div>
-          <div className="container">
-            <div className="events">
-              <div className="pane">EVENT HIGHTLIGHTS</div>
-              <div className="pane">
-                <table className="events-table">
-                  <tbody>{this.renderEvents()}</tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+          {this.renderStory()}
+          {this.renderEvents()}
         </div>
       );
-      /* eslint-enable react/no-danger */
     }
-    return <div className="story" />;
+    return (
+      <div className="about">
+        <div className="container" />
+        <div className="container" />
+      </div>
+    );
   }
 }
 
@@ -80,6 +99,10 @@ AboutPage.propTypes = {
       sub: PropTypes.string
     }))
   ).isRequired,
+  photos: PropTypes.shape({
+    story: PropTypes.string,
+    events: PropTypes.string
+  }).isRequired,
   dataState: PropTypes.string.isRequired,
   fetchContents: PropTypes.func.isRequired
 };
@@ -88,6 +111,7 @@ function mapStateToProps(state) {
   return {
     story: state.about.story,
     events: state.about.events,
+    photos: state.about.photos,
     dataState: state.about.dataState
   };
 }
