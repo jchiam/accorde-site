@@ -7,7 +7,7 @@ import Youtube from 'react-youtube';
 import PageLoader from 'components/PageLoader';
 import { fetchRandomVideo } from 'actions/youtube';
 import DataStates from 'constants/dataStates';
-import YoutubeLogo from 'images/youtube.svg';
+import YoutubeIcon from 'images/youtube.svg';
 
 const YOUTUBE_ASPECT_RATIO = 16 / 9;
 
@@ -77,7 +77,7 @@ class MusicPage extends Component {
           <div className="player-more-info">
             <button onClick={() => window.open(process.env.YOUTUBE_CHANNEL)}>
               Find more at
-              <YoutubeLogo />
+              <YoutubeIcon />
             </button>
           </div>
         </PageLoader>
