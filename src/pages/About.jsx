@@ -84,7 +84,9 @@ class AboutPage extends Component {
         <PageLoader loaded={dataState === DataStates.Fetched}>
           {this.renderStory()}
         </PageLoader>
-        {this.renderEvents()}
+        <PageLoader loaded={dataState === DataStates.Fetched}>
+          {this.renderEvents()}
+        </PageLoader>
       </div>
     );
   }
