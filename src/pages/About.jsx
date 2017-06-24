@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import urlEncode from 'urlencode';
 
 import PageLoader from 'components/PageLoader';
 import { fetchAboutUs } from 'actions/firebase';
@@ -21,7 +20,7 @@ class AboutPage extends Component {
 
   renderStory() {
     const { story, photos } = this.props;
-    const storyPhoto = generateImageUrl(urlEncode(photos.story), 40);
+    const storyPhoto = generateImageUrl(photos.story, 'q_40');
     /* eslint-disable react/no-danger */
     return (
       <div className="container" style={{ backgroundImage: `url(${storyPhoto})` }}>
@@ -62,7 +61,7 @@ class AboutPage extends Component {
 
   renderEvents() {
     const { photos } = this.props;
-    const eventsPhoto = generateImageUrl(urlEncode(photos.events), 40);
+    const eventsPhoto = generateImageUrl(photos.events, 'q_40');
     return (
       <div className="container" style={{ backgroundImage: `url(${eventsPhoto})` }}>
         <div className="events">
