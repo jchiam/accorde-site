@@ -1,6 +1,8 @@
-export function generateImageUrl(url, quality) {
-  if (quality) {
-    return `${process.env.CLOUDINARY_PROXY}/q_${quality}/${url}`;
+import urlEncode from 'urlencode';
+
+export function generateImageUrl(url, transformations) {
+  if (transformations) {
+    return `${process.env.CLOUDINARY_PROXY}/${transformations}/${urlEncode(url)}`;
   }
-  return `${process.env.CLOUDINARY_PROXY}/${url}`;
+  return `${process.env.CLOUDINARY_PROXY}/${urlEncode(url)}`;
 }

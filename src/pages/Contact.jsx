@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import urlEncode from 'urlencode';
 
 import PageLoader from 'components/PageLoader';
 import { fetchContactUs } from 'actions/firebase';
@@ -19,7 +18,7 @@ class ContactPage extends Component {
 
   render() {
     const { photo, dataState } = this.props;
-    const photoURL = generateImageUrl(urlEncode(photo), 70);
+    const photoURL = generateImageUrl(photo, 'q_70');
     return (
       <div className="contact">
         <PageLoader loaded={dataState === DataStates.Fetched}>
