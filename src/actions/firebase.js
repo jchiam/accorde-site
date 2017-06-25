@@ -41,3 +41,12 @@ export function fetchContactUs() {
       .then(snapshot => dispatch({ type: types.FETCH_CONTACT_US_SUCCESS, photo: snapshot.val() }));
   };
 }
+
+export function fetchGallery() {
+  return (dispatch) => {
+    dispatch({ type: types.FETCHING_GALLERY });
+
+    database.ref('/gallery').once('value')
+      .then(snapshot => dispatch({ type: types.FETCH_GALLERY_SUCCESS, photos: snapshot.val() }));
+  };
+}

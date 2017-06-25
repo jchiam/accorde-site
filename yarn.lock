@@ -3544,6 +3544,10 @@ lodash.cond@^4.3.0:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
 
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+
 lodash.get@^3.7.0:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-3.7.0.tgz#3ce68ae2c91683b281cc5394128303cbf75e691f"
@@ -3582,6 +3586,10 @@ lodash.once@^4.0.0:
 lodash.tail@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.tail/-/lodash.tail-4.1.1.tgz#d2333a36d9e7717c8ad2f7cacafec7c32b444664"
+
+lodash.throttle@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
 
 lodash.uniq@^4.5.0:
   version "4.5.0"
@@ -4686,6 +4694,15 @@ react-hot-loader@next:
     redbox-react "^1.2.5"
     source-map "^0.4.4"
 
+react-image-gallery@^0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/react-image-gallery/-/react-image-gallery-0.8.3.tgz#508577a261e643487b344f05e9ec1a24b2f10573"
+  dependencies:
+    lodash.debounce "^4.0.8"
+    lodash.throttle "^4.1.1"
+    prop-types "^15.5.8"
+    react-swipeable "^4.0.0"
+
 react-loader@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/react-loader/-/react-loader-2.4.2.tgz#14e2b9139fc5693da5cdbdc928032d5b1aeb94c2"
@@ -4753,6 +4770,12 @@ react-svg-loader@^1.1.1:
     lodash.isplainobject "~4.0.4"
     svgo "~0.6.3"
     yargs "~4.8.0"
+
+react-swipeable@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-swipeable/-/react-swipeable-4.0.1.tgz#2cb3a04a52ccebf5361881b30e233dc13ee4b115"
+  dependencies:
+    prop-types "^15.5.8"
 
 react-visibility-sensor@^3.10.0:
   version "3.10.0"
