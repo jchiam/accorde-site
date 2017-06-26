@@ -33,6 +33,7 @@ class GalleryPage extends Component {
           <ImageGallery
             items={GalleryPage.prepareImageUrls(gallery)}
             showFullscreenButton={false}
+            showPlayButton={false}
             lazyLoad
           />
         </PageLoader>
