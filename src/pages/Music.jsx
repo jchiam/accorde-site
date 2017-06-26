@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import VisibilitySensor from 'react-visibility-sensor';
 import Youtube from 'react-youtube';
 
 import PageLoader from 'components/PageLoader';
@@ -9,6 +9,7 @@ import { fetchRandomVideo } from 'actions/youtube';
 import DataStates from 'constants/dataStates';
 import YoutubeIcon from 'images/youtube.svg';
 
+const HEADER_BAR_HEIGHT = 80;
 const YOUTUBE_ASPECT_RATIO = 16 / 9;
 
 class MusicPage extends Component {
@@ -50,12 +51,28 @@ class MusicPage extends Component {
   componentDidMount() {
     const { fetchVideo } = this.props;
     fetchVideo();
+    window.addEventListener('scroll', () => this.handlePlayerPlayback());
   }
 
-  handlePlayerPlayback(visible) {
+  componentWillUnmount() {
+    window.removeEventListener('scroll', () => this.handlePlayerPlayback());
+  }
+
+  isVisible() {
+    // eslint-disable-next-line react/no-find-dom-node
+    const dimensions = ReactDOM.findDOMNode(this).getBoundingClientRect();
+    const { height, top, bottom } = dimensions;
+
+    if (bottom > HEADER_BAR_HEIGHT && top < height + HEADER_BAR_HEIGHT) {
+      return true;
+    }
+    return false;
+  }
+
+  handlePlayerPlayback() {
     const { player } = this.state;
     if (player) {
-      if (visible) {
+      if (this.isVisible()) {
         player.playVideo();
       } else {
         player.pauseVideo();
@@ -71,9 +88,7 @@ class MusicPage extends Component {
       <div className="music">
         <PageLoader loaded={dataState === DataStates.Fetched}>
           <div className="player-title">{title}</div>
-          <VisibilitySensor partialVisibility onChange={visible => this.handlePlayerPlayback(visible)}>
-            <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
-          </VisibilitySensor>
+          <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
           <div className="player-more-info">
             <button onClick={() => window.open(process.env.YOUTUBE_CHANNEL)}>
               Find more at
