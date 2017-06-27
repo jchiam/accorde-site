@@ -8,8 +8,10 @@ $page-height: calc(100vh - 80px);
 
 $gallery-image-height: calc(100vh - 80px - 75px);
 
-body {
+html, body {
+  width: 100%;
   margin: 0;
+  overflow-x: hidden;
 }
 
 button {
@@ -152,6 +154,9 @@ button {
   padding: 20px 50px;
 
   .image-gallery-image {
+    align-items: center;
+    display: flex;
+    justify-content: center;
     min-height: 55vh;
 
     img {
