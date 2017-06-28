@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ImageGallery from 'react-image-gallery';
+import Slider from 'react-slick';
 
 import PageLoader from 'components/PageLoader';
 import { fetchGallery } from 'actions/firebase';
@@ -9,17 +9,6 @@ import { generateImageUrl } from 'utils';
 import DataStates from 'constants/dataStates';
 
 class GalleryPage extends Component {
-  static prepareImageUrls(photos) {
-    const images = [];
-    photos.forEach((photo) => {
-      images.push({
-        original: generateImageUrl(photo, 'q_30,ar_16:9,c_fill'),
-        thumbnail: generateImageUrl(photo, 'w_100,h_67,c_thumb')
-      });
-    });
-    return images;
-  }
-
   componentDidMount() {
     const { fetchPhotos } = this.props;
     fetchPhotos();
@@ -27,16 +16,28 @@ class GalleryPage extends Component {
 
   render() {
     const { gallery, dataState } = this.props;
+    const settings = {
+      arrows: true,
+      dots: true,
+      infinite: true,
+      layLoad: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1
+    };
     return (
       <div className="gallery">
-        <PageLoader loaded={dataState === DataStates.Fetched}>
-          <ImageGallery
-            items={GalleryPage.prepareImageUrls(gallery)}
-            showFullscreenButton={false}
-            showPlayButton={false}
-            lazyLoad
-          />
-        </PageLoader>
+        <div className="container">
+          <PageLoader className="loader" loaded={dataState === DataStates.Fetched}>
+            <Slider {...settings}>
+              {gallery.map(photo => (
+                <div key={photo}>
+                  <img src={generateImageUrl(photo, 'q_30,ar_16:9,c_fill')} alt="gallery" />
+                </div>
+              ))}
+            </Slider>
+          </PageLoader>
+        </div>
       </div>
     );
   }
