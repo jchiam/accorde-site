@@ -26,17 +26,24 @@ button {
   height: $page-height; 
 }
 
-.header {
-  align-items: center;
+.header-container {
   background: $background-color;
   display: flex;
   height: $header-height;
-  justify-content: space-between;
-  padding: 0 100px;
+  justify-content: center;
   position: fixed;
   top: 0;
-  width: calc(100vw - 200px);
+  width: 100%;
   z-index: 100;
+}
+
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  // padding: 0 100px;
+  // width: calc(100vw - 200px);
+  width: 70vw;
 
   .header-button {
     font-size: 18pt;
@@ -50,8 +57,11 @@ button {
 /* narrow width */
 @media screen and (max-width: 768px) {
   .header {
-    padding: 0 50px;
-    width: calc(100vw - 100px);
+    width: 90vw;
+
+    .header-button {
+      font-size: 10pt;
+    }
   }
 }
 
