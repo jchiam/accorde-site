@@ -260,15 +260,6 @@ button {
   height: $page-height;
   padding: 0px 30px;
 
-  // .container {
-    
-  //   // transform: translate(0, 30%);
-  // }
-
-  // .loader {
-  //   transform: translate(0, -30%);
-  // }
-
   .slick-next:before, .slick-prev:before {
     color: black;
   }
@@ -279,32 +270,21 @@ button {
   }
 }
 
-// @media screen and (min-aspect-ratio: 7/10) {
-//   .gallery {
-//     .container {
-//       transform: translate(0, 0);
-//     }
-
-//     .loader {
-//       transform: translate(0, 0);
-//     }
-//   }
-// }
-
-// @media screen and (min-aspect-ratio: 9/10) {
-//   .gallery {
-//     .container {
-//       transform: translate(0, 20%);
-//     }
-
-//     .loader {
-//       transform: translate(0, -30%);
-//     }
-//   }
-// }
-
 @media screen and (min-aspect-ratio: 10/7) {
   .gallery {
+    .slick-slide {
+      display: flex;
+      justify-content: center;
+    }
+
+    .slick-next {
+      margin-right: 20px;
+    }
+    
+    .slick-prev {
+      margin-left: 20px;
+    }
+
     img {
       max-height: 70vh;
       width: auto;

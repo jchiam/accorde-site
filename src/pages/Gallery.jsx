@@ -20,7 +20,7 @@ class GalleryPage extends Component {
       arrows: true,
       dots: true,
       infinite: true,
-      layLoad: true,
+      lazyLoad: true,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1
