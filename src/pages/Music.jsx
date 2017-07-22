@@ -15,8 +15,8 @@ const YOUTUBE_ASPECT_RATIO = 16 / 9;
 class MusicPage extends Component {
   static generateYoutubeOptions() {
     const headerHeight = 80;
-    const screenWidth = window.innerWidth - 100;                    // remove 100px as padding buffer
-    const screenHeight = window.innerHeight - headerHeight - 100;   // remove 100px as padding buffer
+    const screenWidth = window.innerWidth - 200;                    // remove 100px as padding buffer
+    const screenHeight = window.innerHeight - headerHeight - 150;   // remove 150px as padding buffer
     const screenAspectRatio = screenWidth / screenHeight;
 
     let youtubeWidth;
@@ -91,8 +91,8 @@ class MusicPage extends Component {
           <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
           <div className="player-more-info">
             <button onClick={() => window.open(process.env.YOUTUBE_CHANNEL)}>
-              Find more at
-              <YoutubeIcon />
+              Visit our YouTube page
+              <YoutubeIcon className="youtube-icon" />
             </button>
           </div>
         </PageLoader>

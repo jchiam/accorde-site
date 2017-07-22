@@ -7,7 +7,7 @@ import Music from 'pages/Music';
 import Gallery from 'pages/Gallery';
 import Contact from 'pages/Contact';
 
-configureAnchors({ offset: -80 });
+configureAnchors({ offset: -60 });
 
 export default class Layout extends Component {
   render() {
