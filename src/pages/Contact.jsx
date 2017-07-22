@@ -27,7 +27,7 @@ class ContactPage extends Component {
               <p>GET IN TOUCH</p>
               <p>accordeguitar@gmail.com</p>
               <FacebookIcon className="contact-icon" onClick={() => window.open(process.env.FACEBOOK_PAGE)} />
-              <YoutubeIcon onClick={() => window.open(process.env.YOUTUBE_CHANNEL)} />
+              <YoutubeIcon className="contact-icon" onClick={() => window.open(process.env.YOUTUBE_CHANNEL)} />
             </div>
             <div className="contact-photo" style={{ backgroundImage: `url(${photoURL})` }} />
           </div>
