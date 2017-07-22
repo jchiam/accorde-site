@@ -16,11 +16,11 @@ export default class Header extends Component {
   render() {
     return (
       <div className="header">
-        {Header.renderHeaderButton('home', 'Home')}
-        {Header.renderHeaderButton('about', 'About')}
-        {Header.renderHeaderButton('music', 'Music')}
-        {Header.renderHeaderButton('gallery', 'Gallery')}
-        {Header.renderHeaderButton('contact', 'Contact')}
+        {Header.renderHeaderButton('home', 'HOME')}
+        {Header.renderHeaderButton('about', 'ABOUT')}
+        {Header.renderHeaderButton('music', 'MUSIC')}
+        {Header.renderHeaderButton('gallery', 'GALLERY')}
+        {Header.renderHeaderButton('contact', 'CONTACT')}
       </div>
     );
   }

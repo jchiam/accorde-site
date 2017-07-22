@@ -1,7 +1,7 @@
 $background-color: #fff;
 $highlight-color: #4990E2;
 
-$header-height: 80px;
+$header-height: 60px;
 $page-height: calc(100vh - 80px);
 
 html, body {
@@ -27,7 +27,7 @@ button {
 }
 
 .header {
-  align-items: flex-end;
+  align-items: center;
   background: $background-color;
   display: flex;
   height: $header-height;
