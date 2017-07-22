@@ -1,10 +1,11 @@
 $background-color: #fff;
 $highlight-color: #4990E2;
 
-$header-height: 80px;
+$header-height: 60px;
 $page-height: calc(100vh - 80px);
 
 html, body {
+  font-family: 'Assistant', sans-serif;
   width: 100%;
   margin: 0;
   overflow-x: hidden;
@@ -13,6 +14,7 @@ html, body {
 button {
   background: $background-color;
   border: 0;
+  font-family: 'Assistant', sans-serif;
   outline: none;
 }
 
@@ -25,7 +27,7 @@ button {
 }
 
 .header {
-  align-items: flex-end;
+  align-items: center;
   background: $background-color;
   display: flex;
   height: $header-height;
@@ -35,6 +37,10 @@ button {
   top: 0;
   width: calc(100vw - 200px);
   z-index: 100;
+
+  .header-button {
+    font-size: 18pt;
+  }
 
   .header-button:hover {
     color: $highlight-color;
@@ -87,8 +93,9 @@ button {
 
   .story {
     color: white;
+    line-height: 150%;
     padding: 0 50px;
-    text-align: center;
+    text-align: justify;
   }
 
   .events {
