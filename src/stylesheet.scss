@@ -2,7 +2,7 @@ $background-color: #fff;
 $highlight-color: #4990E2;
 
 $header-height: 60px;
-$page-height: calc(100vh - 80px);
+$page-height: calc(100vh - 60px);
 
 html, body {
   font-family: 'Assistant', sans-serif;
@@ -40,9 +40,8 @@ button {
 .header {
   align-items: center;
   display: flex;
+  height: 100%;
   justify-content: space-between;
-  // padding: 0 100px;
-  // width: calc(100vw - 200px);
   width: 70vw;
 
   .header-button {
