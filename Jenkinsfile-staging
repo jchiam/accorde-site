@@ -32,7 +32,7 @@ pipeline {
                 deleteDir()
             }
             slackSend teamDomain: 'accordege', channel: '#it_dev', color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> succeeded!\nPlease verify at $STAGING_URL", tokenCredentialId: 'accorde-slack-token'
-            slackSend teamDomain: 'accordege', channel: '#accorde_pubs', color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> succeeded!\nPlease verify at $STAGING_URL", tokenCredentialId: 'accorde-slack-token'
+            slackSend teamDomain: 'accordege', channel: '#accorde-pubs', color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> succeeded!\nPlease verify at $STAGING_URL", tokenCredentialId: 'accorde-slack-token'
         }
         failure {
             slackSend teamDomain: 'accordege', channel: '#it_dev', color: 'danger', message: "Build <$BUILD_URL|$BUILD_NUMBER> failed.", tokenCredentialId: 'accorde-slack-token'
