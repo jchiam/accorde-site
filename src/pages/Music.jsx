@@ -9,7 +9,7 @@ import { fetchRandomVideo } from 'actions/youtube';
 import DataStates from 'constants/dataStates';
 import YoutubeIcon from 'images/youtube.svg';
 
-const HEADER_BAR_HEIGHT = 80;
+const HEADER_BAR_HEIGHT = 60;
 const YOUTUBE_ASPECT_RATIO = 16 / 9;
 
 class MusicPage extends Component {
@@ -63,7 +63,7 @@ class MusicPage extends Component {
     const dimensions = ReactDOM.findDOMNode(this).getBoundingClientRect();
     const { height, top, bottom } = dimensions;
 
-    if (bottom > HEADER_BAR_HEIGHT && top < height + HEADER_BAR_HEIGHT) {
+    if (bottom > HEADER_BAR_HEIGHT && top < height) {
       return true;
     }
     return false;
