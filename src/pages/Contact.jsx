@@ -1,63 +1,33 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import Mailto from 'react-mailto';
 
-import PageLoader from 'components/PageLoader';
-import { fetchContactUs } from 'actions/firebase';
-import { generateImageUrl } from 'utils';
-import DataStates from 'constants/dataStates';
+import YoutubeIcon from 'images/youtube-icon.svg';
+import FacebookIcon from 'images/facebook-icon.svg';
+import EmailIcon from 'images/email-icon.svg';
 
-import FacebookIcon from 'images/facebook-round.svg';
-import YoutubeIcon from 'images/youtube-round.svg';
-
-class ContactPage extends Component {
-  componentDidMount() {
-    const { fetchContact } = this.props;
-    fetchContact();
-  }
-
+export default class Contact extends Component {
   render() {
-    const { photo, dataState } = this.props;
-    const photoURL = generateImageUrl(photo, 'q_70');
     return (
       <div className="contact">
-        <PageLoader loaded={dataState === DataStates.Fetched}>
-          <div className="container">
-            <div className="contact-info">
-              <p>GET IN TOUCH</p>
-              <p>accordeguitar@gmail.com</p>
-              <FacebookIcon className="contact-icon" onClick={() => window.open(process.env.FACEBOOK_PAGE)} />
-              <YoutubeIcon className="contact-icon" onClick={() => window.open(process.env.YOUTUBE_CHANNEL)} />
-            </div>
-            <div className="contact-photo" style={{ backgroundImage: `url(${photoURL})` }} />
+        <div className="title">GET IN TOUCH!</div>
+        <div className="social-media-container">
+          <div className="social-media">
+            <YoutubeIcon className="social-media-icon" onClick={() => window.open(process.env.YOUTUBE_CHANNEL)} />
+            Visit Our<br />Youtube Channel
           </div>
-        </PageLoader>
+          <div className="social-media">
+            <FacebookIcon className="social-media-icon" onClick={() => window.open(process.env.FACEBOOK_PAGE)} />
+            Visit Our<br />Facebook Page
+          </div>
+          <div className="social-media">
+            <Mailto email={process.env.EMAIL} obfuscate>
+              <EmailIcon className="social-media-icon" />
+            </Mailto>
+            Email Us!
+          </div>
+        </div>
+        <div className="footer">Recruitment // Engagement // Outreach</div>
       </div>
     );
   }
 }
-
-ContactPage.propTypes = {
-  photo: PropTypes.string.isRequired,
-  dataState: PropTypes.string.isRequired,
-  fetchContact: PropTypes.func.isRequired
-};
-
-function mapStateToProps(state) {
-  return {
-    photo: state.contact.photo,
-    dataState: state.contact.dataState
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchContact: () => dispatch(fetchContactUs())
-  };
-}
-
-const Contact = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ContactPage);
-export default Contact;

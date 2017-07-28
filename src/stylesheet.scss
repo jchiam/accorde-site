@@ -293,33 +293,64 @@ button {
 }
 
 .contact {
+  display: flex;
+  flex-direction: column;
   height: $page-height;
-  padding: 0 10px;
+  justify-content: space-between;
+  padding: 0 20px;
 
-  .container {
-    align-items: center;
+  .title {
+    font-size: 64pt;
+    text-align: center;
+  }
+
+  .social-media-container {
     display: flex;
-    height: $page-height;
-    justify-content: space-between;
+    justify-content: center;
   }
 
-  .contact-info {
-    width: 40%;
-    padding-right: 10px;
-    text-align: right;
+  .social-media {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+    text-align: center;
   }
 
-  .contact-icon {
-    height: 20px;
-    margin: 0 2px;
-    width: 20px;
+  .social-media:hover {
+    cursor: pointer;
   }
 
-  .contact-photo {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 80%;
-    width: 60%
+  .social-media-icon {
+    height: 150px;
+    margin-bottom: 20px;
+    width: 150px;
+  }
+
+  .footer {
+    margin-bottom: 20px;
+  }
+}
+
+/* very narrow width */
+@media screen and (max-width: 420px) {
+  .contact {
+    .title {
+      font-size: 48pt;
+    }
+
+    .social-media-icon {
+      height: 70px;
+      width: 70px;
+    }
+  }
+}
+
+/* narrow width */
+@media screen and (min-width: 420px) and (max-width: 570px) {
+  .contact {
+    .social-media-icon {
+      height: 100px;
+      width: 100px;
+    }
   }
 }

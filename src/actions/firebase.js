@@ -33,15 +33,6 @@ export function fetchAboutUs() {
   };
 }
 
-export function fetchContactUs() {
-  return (dispatch) => {
-    dispatch({ type: types.FETCHING_CONTACT_US });
-
-    database.ref('/photos').child('/contact-us').once('value')
-      .then(snapshot => dispatch({ type: types.FETCH_CONTACT_US_SUCCESS, photo: snapshot.val() }));
-  };
-}
-
 export function fetchGallery() {
   return (dispatch) => {
     dispatch({ type: types.FETCHING_GALLERY });
