@@ -297,16 +297,18 @@ button {
   flex-direction: column;
   height: $page-height;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 50px 20px 0 20px;
 
   .title {
     font-size: 64pt;
+    line-height: 110%;
     text-align: center;
   }
 
   .social-media-container {
     display: flex;
     justify-content: center;
+    margin-top: -70px;
   }
 
   .social-media {
@@ -351,6 +353,25 @@ button {
     .social-media-icon {
       height: 100px;
       width: 100px;
+    }
+  }
+}
+
+/* regular width */
+@media screen and (min-width: 570px) and (max-width: 860px) {
+  .contact {
+    .social-media-icon {
+      height: 125px;
+      width: 125px;
+    }
+  }
+}
+
+/* wide screen */
+@media screen and (min-width: 860px) {
+  .contact {
+    .social-media {
+      margin: 0 40px;
     }
   }
 }
