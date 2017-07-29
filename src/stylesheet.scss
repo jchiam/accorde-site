@@ -351,6 +351,10 @@ button {
 /* narrow width */
 @media screen and (min-width: 420px) and (max-width: 570px) {
   .contact {
+    .title {
+      margin-top: 30px;
+    }
+
     .social-media-icon {
       height: 100px;
       width: 100px;
