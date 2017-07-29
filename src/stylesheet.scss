@@ -297,11 +297,12 @@ button {
   flex-direction: column;
   height: $page-height;
   justify-content: space-between;
-  padding: 50px 20px 0 20px;
+  padding: 0 20px;
 
   .title {
     font-size: 64pt;
     line-height: 110%;
+    margin-top: 70px;
     text-align: center;
   }
 
