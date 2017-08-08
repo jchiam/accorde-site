@@ -119,12 +119,12 @@ button {
   }
 
   .events {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     .about-title {
       padding-bottom: 20px;
-    }
-
-    .pane {
-      flex: 1;
     }
 
     .events-table {

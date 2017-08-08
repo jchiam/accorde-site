@@ -65,12 +65,10 @@ class AboutPage extends Component {
     return (
       <div className="container" style={{ backgroundImage: `url(${eventsPhoto})` }}>
         <div className="events">
-          <div className="pane about-title">EVENT HIGHTLIGHTS</div>
-          <div className="pane">
-            <table className="events-table">
-              <tbody>{this.renderEventsTable()}</tbody>
-            </table>
-          </div>
+          <div className="about-title">EVENT HIGHTLIGHTS</div>
+          <table className="events-table">
+            <tbody>{this.renderEventsTable()}</tbody>
+          </table>
         </div>
       </div>
     );
@@ -82,6 +80,9 @@ class AboutPage extends Component {
       <div className="about">
         <PageLoader loaded={dataState === DataStates.Fetched}>
           {this.renderStory()}
+        </PageLoader>
+        <PageLoader loaded={dataState === DataStates.Fetched}>
+          {this.renderEvents()}
         </PageLoader>
       </div>
     );
