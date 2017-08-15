@@ -49,7 +49,8 @@ class AboutPage extends Component {
             </td>
             <td className="event-cell">
               <div className="event-name">{event.name}</div>
-              <div>{event.sub || null}</div>
+              <div className="event-sub">{event.sub || null}</div>
+              <div className="event-more">{'Find out more >>'}</div>
             </td>
           </tr>
         )
