@@ -14,6 +14,15 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 
+export function fetchUpcomingEvent() {
+  return (dispatch) => {
+    dispatch({ type: types.FETCHING_UPCOMING_EVENT });
+
+    database.ref('/upcoming-event').once('value')
+      .then(snapshot => dispatch({ type: types.FETCH_UPCOMING_EVENT_SUCCESS, event: snapshot.val() }));
+  };
+}
+
 export function fetchAboutUs() {
   return (dispatch) => {
     dispatch({ type: types.FETCHING_ABOUT_US });
