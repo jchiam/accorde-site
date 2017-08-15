@@ -119,9 +119,10 @@ button {
   }
 
   .events {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    padding: 0 20px;
 
     .about-title {
       padding-bottom: 20px;
@@ -129,6 +130,11 @@ button {
 
     .events-table {
       border-collapse: collapse;
+
+      tr:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+      }
     }
 
     .event-month {
@@ -144,12 +150,25 @@ button {
       border-bottom: 2px solid white;
       color: white;
       padding: 20px 10px;
+      position: relative;
       text-align: center;
       word-wrap: normal;
     }
 
     .event-name {
       font-size: 130%;
+    }
+
+    .event-sub {
+      margin: 0 30px;
+    }
+
+    .event-more {
+      bottom: 0;
+      color: $highlight-color;
+      font-style: italic;
+      position: absolute;
+      right: 5px;
     }
   }
 }
