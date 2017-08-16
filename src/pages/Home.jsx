@@ -7,36 +7,50 @@ import { fetchUpcomingEvent } from 'actions/firebase';
 import DataStates from 'constants/dataStates';
 
 class HomePage extends Component {
+  static renderHomeLogo() {
+    return (
+      <div className="container">
+        <img className="logo" src={process.env.LOGO} alt="logo" />
+      </div>
+    );
+  }
+
   componentDidMount() {
     const { fetchEvent } = this.props;
     fetchEvent();
   }
 
-  renderUpcomingEvents() {
-    const { event } = this.props;
-    if (event) {
+  renderUpcomingEvent() {
+    const { event, dataState } = this.props;
+
+    if (dataState !== DataStates.Fetched) {
+      return <PageLoader className="loader" loaded={false} />;
+    }
+
+    if (event && event.publish) {
+      /* eslint-disable react/no-danger */
       return (
-        <div className="upcoming-event">
-          <img className="event-image" src={event.image} alt="event" />
-          <div className="details">
-            <div dangerouslySetInnerHTML={{ __html: event.text }} />
-            <button className="button" onClick={() => window.open(event.link)}>FIND OUT MORE</button>
+        <div className="container">
+          <div className="upcoming-event">
+            <img className="event-image" src={event.image} alt="event" />
+            <div className="details">
+              <div dangerouslySetInnerHTML={{ __html: event.text }} />
+              <button className="button" onClick={() => window.open(event.link)}>FIND OUT MORE</button>
+            </div>
           </div>
         </div>
       );
+      /* eslint-enable react/no-danger */
     }
     return null;
   }
+
   render() {
     const { dataState } = this.props;
     return (
       <div className="home">
-        <div className="container">
-          <img className="logo" src={process.env.LOGO} alt="logo" />
-        </div>
-        <PageLoader className="loader" loaded={dataState === DataStates.Fetched}>
-          <div className="container">{this.renderUpcomingEvents()}</div>
-        </PageLoader>
+        {HomePage.renderHomeLogo()}
+        {this.renderUpcomingEvent()}
       </div>
     );
   }

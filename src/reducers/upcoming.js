@@ -13,15 +13,11 @@ export default function (state = initialState, action) {
         dataState: DataStates.Fetching
       };
     case types.FETCH_UPCOMING_EVENT_SUCCESS: {
-      if (action.event.publish) {
-        return {
-          ...state,
-          event: action.event,
-          dataState: DataStates.Fetched
-        };
-      } else {
-        return null;
-      }
+      return {
+        ...state,
+        event: action.event,
+        dataState: DataStates.Fetched
+      };
     }
     case types.FETCH_UPCOMING_EVENT_ERROR:
       return {

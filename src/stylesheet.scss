@@ -123,6 +123,26 @@ button {
   }
 }
 
+/* alternate display for upcoming event */
+@media screen and (max-width: 735px) {
+  .home {
+    .upcoming-event {
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .event-image {
+      height: 30vh;
+      width: auto;
+    }
+
+    .details {
+      margin-left: 0;
+      width: 50vw;
+    }
+  }
+}
+
 .about {
   min-height: $page-height;
 
