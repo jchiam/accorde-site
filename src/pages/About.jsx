@@ -13,6 +13,12 @@ class AboutPage extends Component {
     return moment(date, 'YYYY-MM');
   }
 
+  static navigateToLink(link) {
+    if (link) {
+      window.open(link);
+    }
+  }
+
   componentDidMount() {
     const { fetchContents } = this.props;
     fetchContents();
@@ -42,7 +48,7 @@ class AboutPage extends Component {
       const parsedDate = AboutPage.parseEventDate(date);
       dateEvents.forEach(event =>
         eventRows.push(
-          <tr key={JSON.stringify(event)}>
+          <tr key={JSON.stringify(event)} onClick={() => AboutPage.navigateToLink(event.link)}>
             <td className="event-cell">
               <div className="event-month">{parsedDate.format('MMM').toUpperCase()}</div>
               <div className="event-year">{parsedDate.format('YYYY')}</div>
@@ -95,7 +101,8 @@ AboutPage.propTypes = {
   events: PropTypes.objectOf(
     PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
-      sub: PropTypes.string
+      sub: PropTypes.string,
+      link: PropTypes.string
     }))
   ).isRequired,
   photos: PropTypes.shape({
