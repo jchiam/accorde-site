@@ -46,7 +46,6 @@ class HomePage extends Component {
   }
 
   render() {
-    const { dataState } = this.props;
     return (
       <div className="home">
         {HomePage.renderHomeLogo()}

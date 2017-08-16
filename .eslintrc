@@ -11,6 +11,7 @@
     import/prefer-default-export: "warn",
     max-len: ["warn", 120],
     no-else-return: "off",
+    no-multi-spaces: ["error", { ignoreEOLComments: true }],
     no-param-reassign: "warn",
     no-restricted-syntax: "warn",
     no-underscore-dangle: ["warn", { allow: ["_csrf_token", "_isSetup"] }],
