@@ -46,6 +46,13 @@ button {
 
   .header-button {
     font-size: 18pt;
+    height: 100%;
+    width: 110px;
+  }
+
+  .header-button-selected {
+    border-bottom: 3px solid $highlight-color;
+    color: $highlight-color;
   }
 
   .header-button:hover {

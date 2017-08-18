@@ -18,6 +18,7 @@
   "dependencies": {
     "async": "^2.5.0",
     "axios": "^0.16.2",
+    "classnames": "^2.2.5",
     "firebase": "^4.2.0",
     "mirror-creator": "^1.1.0",
     "moment": "^2.18.1",

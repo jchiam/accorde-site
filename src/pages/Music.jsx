@@ -46,17 +46,19 @@ class MusicPage extends Component {
   constructor(props) {
     super(props);
     this.state = { player: null };
+    this.onPlayerPlayback = this.handlePlayerPlayback.bind(this);
   }
 
   componentDidMount() {
     const { fetchVideo } = this.props;
     fetchVideo();
-    window.addEventListener('scroll', () => this.handlePlayerPlayback());
+    window.addEventListener('scroll', this.onPlayerPlayback);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', () => this.handlePlayerPlayback());
+    window.removeEventListener('scroll', this.onPlayerPlayback);
   }
+
 
   isVisible() {
     // eslint-disable-next-line react/no-find-dom-node
