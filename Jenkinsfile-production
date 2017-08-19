@@ -1,0 +1,45 @@
+#!groovy
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Pre-build') {
+            steps {
+                slackSend teamDomain: 'accordege', channel: '#it_dev', color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> started!", tokenCredentialId: 'accorde-slack-token'
+                slackSend teamDomain: 'accordege', channel: '#accorde-pubs', color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> started!", tokenCredentialId: 'accorde-slack-token'
+                sh 'make prebuild'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'make build'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                withCredentials([string(credentialsId: 'firebase-token', variable: 'FIREBASE_TOKEN')]) {
+                    sh 'make deploy-production TOKEN=$FIREBASE_TOKEN'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            dir('dist') {
+                deleteDir()
+            }
+            slackSend teamDomain: 'accordege', channel: '#it_dev', color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> succeeded!\nPlease verify at $PRODUCTION_URL", tokenCredentialId: 'accorde-slack-token'
+            slackSend teamDomain: 'accordege', channel: '#accorde-pubs', color: 'good', message: "Build <$BUILD_URL|$JOB_NAME-$BUILD_NUMBER> succeeded!\nPlease verify at $PRODUCTION_URL", tokenCredentialId: 'accorde-slack-token'
+        }
+        failure {
+            slackSend teamDomain: 'accordege', channel: '#it_dev', color: 'danger', message: "Build <$BUILD_URL|$BUILD_NUMBER> failed.", tokenCredentialId: 'accorde-slack-token'
+        }
+        unstable {
+            slackSend teamDomain: 'accordege', channel: '#it_dev', color: 'warning', message: "Build <$BUILD_URL|$BUILD_NUMBER> is unstable.", tokenCredentialId: 'accorde-slack-token'
+        }
+    }
+}
