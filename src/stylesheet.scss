@@ -152,6 +152,10 @@ button {
 .about {
   min-height: $page-height;
 
+  a {
+    cursor: default;
+  }
+
   .container {
     align-items: center;
     background-position: center;
