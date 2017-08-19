@@ -13,8 +13,12 @@ const HEADER_STATES = {
 export default class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = { header: HEADER_STATES.HOME };
+    this.state = { header: '' };
     this.onHashChange = this.handleHashChange.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({ header: window.location.hash ? window.location.hash.substring(1) : HEADER_STATES.HOME });
   }
 
   componentDidMount() {
