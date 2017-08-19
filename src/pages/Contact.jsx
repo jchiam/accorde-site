@@ -20,7 +20,7 @@ export default class Contact extends Component {
             Visit Our<br />Facebook Page
           </div>
           <div className="social-media">
-            <Mailto email={process.env.EMAIL} obfuscate>
+            <Mailto email={process.env.EMAIL}>
               <EmailIcon className="social-media-icon" />
             </Mailto>
             Email Us!
