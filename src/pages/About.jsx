@@ -72,7 +72,7 @@ class AboutPage extends Component {
     return (
       <div className="container" style={{ backgroundImage: `url(${eventsPhoto})` }}>
         <div className="events">
-          <div className="about-title">EVENT HIGHTLIGHTS</div>
+          <div className="about-title">EVENT HIGHLIGHTS</div>
           <table className="events-table">
             <tbody>{this.renderEventsTable()}</tbody>
           </table>
