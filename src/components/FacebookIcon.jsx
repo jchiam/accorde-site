@@ -11,10 +11,11 @@ export default class FacebookIcon extends Component {
 
   render() {
     const { hovered } = this.state;
-    const { className } = this.props;
+    const { className, onClick } = this.props;
     return (
-      <div
+      <button
         className={className}
+        onClick={onClick}
         onMouseOver={() => this.setState({ hovered: true })}
         onMouseOut={() => this.setState({ hovered: false })}
       >
@@ -38,15 +39,17 @@ export default class FacebookIcon extends Component {
             </g>
           </g>
         </svg>
-      </div>
+      </button>
     );
   }
 }
 
 FacebookIcon.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 FacebookIcon.defaultProps = {
-  className: ''
+  className: '',
+  onClick: () => {}
 };
