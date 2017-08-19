@@ -382,6 +382,10 @@ button {
   justify-content: space-between;
   padding: 0 20px;
 
+  a {
+    cursor: default;
+  }
+
   .title {
     font-size: 64pt;
     line-height: 110%;

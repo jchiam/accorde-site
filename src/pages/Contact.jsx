@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Mailto from 'react-mailto';
 
-import YoutubeIcon from 'images/youtube-icon.svg';
-import FacebookIcon from 'images/facebook-icon.svg';
-import EmailIcon from 'images/email-icon.svg';
+import YoutubeIcon from 'components/YoutubeIcon';
+import FacebookIcon from 'components/FacebookIcon';
+import EmailIcon from 'components/EmailIcon';
 
 export default class Contact extends Component {
   render() {
