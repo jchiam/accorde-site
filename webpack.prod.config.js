@@ -3,6 +3,7 @@ const path = require('path');
 const DotenvPlugin = require('webpack-dotenv-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   context: __dirname,
@@ -40,6 +41,7 @@ module.exports = {
     ]
   },
   plugins: [
+    // new BundleAnalyzerPlugin({ analyzerMode: 'static' }),
     new DotenvPlugin({
       sample: './.env.example',
       path: './.env'
