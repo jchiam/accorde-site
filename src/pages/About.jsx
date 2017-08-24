@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import PageLoader from 'components/PageLoader';
 import { fetchAboutUs } from 'actions/firebase';
 import { generateImageUrl } from 'utils';
+import Months from 'constants/dates';
 import DataStates from 'constants/dataStates';
 
 class AboutPage extends Component {
   static parseEventDate(date) {
-    return moment(date, 'YYYY-MM');
+    const tokenisedDate = date.split('-');
+    if (tokenisedDate.length === 2) {
+      return {
+        year: tokenisedDate[0].toString(),
+        month: Months[parseInt(tokenisedDate[1], 10) - 1].toUpperCase()
+      };
+    }
+    return null;
   }
 
   static navigateToLink(link) {
@@ -50,8 +57,8 @@ class AboutPage extends Component {
         eventRows.push(
           <tr key={JSON.stringify(event)} onClick={() => AboutPage.navigateToLink(event.link)}>
             <td className="event-cell">
-              <div className="event-month">{parsedDate.format('MMM').toUpperCase()}</div>
-              <div className="event-year">{parsedDate.format('YYYY')}</div>
+              <div className="event-month">{parsedDate.month}</div>
+              <div className="event-year">{parsedDate.year}</div>
             </td>
             <td className="event-cell">
               <div className="event-name">{event.name}</div>
