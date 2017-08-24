@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ResponsiveEmbed from 'react-responsive-embed';
+import Youtube from 'react-youtube';
 
 import PageLoader from 'components/PageLoader';
 import { fetchRandomVideo } from 'actions/youtube';
@@ -12,18 +12,16 @@ import YoutubeIcon from 'images/youtube.svg';
 const HEADER_BAR_HEIGHT = 60;
 
 class MusicPage extends Component {
-  static generateYoutubeURL(videoID) {
-    return `https://www.youtube.com/embed/${videoID}`;
-  }
-
-  static renderPlayer(video) {
-    return (
-      <ResponsiveEmbed
-        src={MusicPage.generateYoutubeURL(video)}
-        ratio="16:9"
-        allowfullscreen
-      />
-    );
+  static generateYoutubeOptions() {
+    return {
+      height: 1600,
+      width: 900,
+      playerVars: { // https://developers.google.com/youtube/player_parameters
+        color: 'white',
+        rel: 0,
+        showinfo: 0
+      }
+    };
   }
 
   constructor(props) {
@@ -41,6 +39,7 @@ class MusicPage extends Component {
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onPlayerPlayback);
   }
+
 
   isVisible() {
     // eslint-disable-next-line react/no-find-dom-node
@@ -66,11 +65,15 @@ class MusicPage extends Component {
 
   render() {
     const { video, title, dataState } = this.props;
+    const opts = MusicPage.generateYoutubeOptions();
+
     return (
       <div className="music">
         <PageLoader loaded={dataState === DataStates.Fetched}>
           <div className="player-title">{title}</div>
-          {MusicPage.renderPlayer(video)}
+          <div className="player-container">
+            <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
+          </div>
           <div className="player-more-info">
             <button onClick={() => window.open(process.env.YOUTUBE_CHANNEL)}>
               Visit our YouTube page
