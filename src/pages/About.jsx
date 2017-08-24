@@ -26,7 +26,7 @@ class AboutPage extends Component {
 
   renderStory() {
     const { story, photos } = this.props;
-    const storyPhoto = generateImageUrl(photos.story, 'q_40');
+    const storyPhoto = generateImageUrl(photos.story, 'w_1000');
     /* eslint-disable react/no-danger */
     return (
       <div className="container" style={{ backgroundImage: `url(${storyPhoto})` }}>
@@ -68,7 +68,7 @@ class AboutPage extends Component {
 
   renderEvents() {
     const { photos } = this.props;
-    const eventsPhoto = generateImageUrl(photos.events, 'q_40');
+    const eventsPhoto = generateImageUrl(photos.events, 'w_1000');
     return (
       <div className="container" style={{ backgroundImage: `url(${eventsPhoto})` }}>
         <div className="events">
