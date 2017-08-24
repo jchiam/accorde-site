@@ -1,5 +1,6 @@
 import async from 'async';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 import types from 'actions/types';
 
