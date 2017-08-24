@@ -32,7 +32,7 @@ class GalleryPage extends Component {
             <Slider {...settings}>
               {gallery.map(photo => (
                 <div key={photo}>
-                  <img src={generateImageUrl(photo, 'q_30,ar_16:9,c_fill')} alt="gallery" />
+                  <img src={generateImageUrl(photo, 'q_50,w_1000,ar_16:9,c_fill')} alt="gallery" />
                 </div>
               ))}
             </Slider>
