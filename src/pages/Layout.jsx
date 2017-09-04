@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ScrollableAnchor, { configureAnchors } from 'react-scrollable-anchor';
+import Scroll from 'react-scroll';
 
 import Home from 'pages/Home';
 import About from 'pages/About';
@@ -7,27 +7,32 @@ import Music from 'pages/Music';
 import Gallery from 'pages/Gallery';
 import Contact from 'pages/Contact';
 
-configureAnchors({ offset: -60 });
+const Element = Scroll.Element;
+const scroll = Scroll.animateScroll;
 
 export default class Layout extends Component {
+  componentDidMount() {
+    scroll.scrollTo(0); // set initial scroll position to top
+  }
+
   render() {
     return (
       <div className="layout">
-        <ScrollableAnchor id="home">
+        <Element name="home">
           <Home />
-        </ScrollableAnchor>
-        <ScrollableAnchor id="about">
+        </Element>
+        <Element name="about">
           <About />
-        </ScrollableAnchor>
-        <ScrollableAnchor id="music">
+        </Element>
+        <Element name="music">
           <Music />
-        </ScrollableAnchor>
-        <ScrollableAnchor id="gallery">
+        </Element>
+        <Element name="gallery">
           <Gallery />
-        </ScrollableAnchor>
-        <ScrollableAnchor id="contact">
+        </Element>
+        <Element name="contact">
           <Contact />
-        </ScrollableAnchor>
+        </Element>
       </div>
     );
   }

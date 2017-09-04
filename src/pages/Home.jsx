@@ -24,7 +24,7 @@ class HomePage extends Component {
     const { event, dataState } = this.props;
 
     if (dataState !== DataStates.Fetched) {
-      return <PageLoader className="loader" loaded={false} />;
+      return <PageLoader className="loader" style={{ height: 0 }} loaded={false} />;
     }
 
     if (event && event.publish) {
