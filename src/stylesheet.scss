@@ -156,10 +156,6 @@ button {
 .about {
   min-height: $page-height;
 
-  a {
-    cursor: default;
-  }
-
   .container {
     align-items: center;
     background-position: center;
@@ -181,12 +177,19 @@ button {
     padding: 0 50px;
     text-align: justify;
 
-    a {
+    .contact-us {
+      display: flex;
+      justify-content: center;
+    }
+
+    button {
+      background: transparent;
       color: $highlight-color;
+      font-size: 20pt;
       text-decoration: none;
     }
 
-    a:hover {
+    button:hover {
       text-decoration: underline;
     }
   }
