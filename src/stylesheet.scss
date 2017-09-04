@@ -176,22 +176,6 @@ button {
     line-height: 150%;
     padding: 0 50px;
     text-align: justify;
-
-    .contact-us {
-      display: flex;
-      justify-content: center;
-    }
-
-    button {
-      background: transparent;
-      color: $highlight-color;
-      font-size: 20pt;
-      text-decoration: none;
-    }
-
-    button:hover {
-      text-decoration: underline;
-    }
   }
 
   .events {
