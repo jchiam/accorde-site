@@ -45,12 +45,16 @@ button {
   width: 70vw;
 
   .header-button {
+    align-items: center;
+    display: flex;
     font-size: 18pt;
     height: 100%;
+    justify-content: center;
     width: 110px;
   }
 
   .header-button-selected {
+    @extend .header-button;
     border-bottom: 3px solid $highlight-color;
     color: $highlight-color;
   }
