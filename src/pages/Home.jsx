@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import PageLoader from 'components/PageLoader';
 import { fetchUpcomingEvent } from 'actions/firebase';
 import DataStates from 'constants/dataStates';
 
@@ -22,12 +21,7 @@ class HomePage extends Component {
 
   renderUpcomingEvent() {
     const { event, dataState } = this.props;
-
-    if (dataState !== DataStates.Fetched) {
-      return <PageLoader className="loader" style={{ height: 0 }} loaded={false} />;
-    }
-
-    if (event && event.publish) {
+    if (dataState === DataStates.Fetched && event && event.publish) {
       /* eslint-disable react/no-danger */
       return (
         <div className="container">

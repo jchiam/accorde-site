@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Scroll from 'react-scroll';
 
 const Link = Scroll.Link;
-const scroll = Scroll.animateScroll;
 const SCROLL_OFFSET = -60;
 
 export default class Header extends Component {
@@ -20,10 +19,6 @@ export default class Header extends Component {
         {label}
       </Link>
     );
-  }
-
-  componentDidMount() {
-    scroll.scrollToTop(); // set initial scroll position to top
   }
 
   render() {
