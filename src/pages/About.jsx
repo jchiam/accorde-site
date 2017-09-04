@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Scroll from 'react-scroll';
 
 import PageLoader from 'components/PageLoader';
 import { fetchAboutUs } from 'actions/firebase';
 import { generateImageUrl } from 'utils';
 import Months from 'constants/dates';
 import DataStates from 'constants/dataStates';
+
+const scroller = Scroll.scroller;
 
 class AboutPage extends Component {
   static parseEventDate(date) {
@@ -40,6 +43,9 @@ class AboutPage extends Component {
         <div className="story" >
           <div className="about-title">OUR STORY</div>
           <div dangerouslySetInnerHTML={{ __html: story }} />
+          <div className="contact-us">
+            <button onClick={() => scroller.scrollTo('contact')}>CONTACT US</button>
+          </div>
         </div>
       </div>
     );
