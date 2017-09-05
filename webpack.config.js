@@ -50,9 +50,6 @@ module.exports = {
       path: './.env'
     }),
     new ExtractTextPlugin('styles.css'),
-    new HtmlWebpackPlugin({
-      template: 'src/index.ejs',
-      inject: 'body'
-    })
+    new HtmlWebpackPlugin({ template: 'src/index.ejs' })
   ]
 };
