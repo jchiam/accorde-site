@@ -3,6 +3,7 @@ const path = require('path');
 const DotenvPlugin = require('webpack-dotenv-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
@@ -10,7 +11,7 @@ module.exports = {
   entry: './src/app.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.[hash].js',
+    filename: '[name]-[chunkhash].js',
     publicPath: '/'
   },
   resolve: {
@@ -46,11 +47,18 @@ module.exports = {
       sample: './.env.example',
       path: './.env'
     }),
-    new ExtractTextPlugin('styles-[hash].css'),
+    new webpack.NamedModulesPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: module => /node_modules/.test(module.resource)
+    }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'manifest' }),
+    new InlineManifestWebpackPlugin({ name: 'webpackManifest' }),
     new HtmlWebpackPlugin({
       template: 'src/index.ejs',
-      inject: 'body'
+      chunks: ['main', 'vendor']
     }),
+    new ExtractTextPlugin('styles-[chunkhash].css'),
     new webpack.optimize.UglifyJsPlugin({
       comments: false,
       compress: {
