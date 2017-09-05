@@ -10,7 +10,7 @@ import { AppContainer } from 'react-hot-loader';
 import store from 'store';
 import routes from 'routes';
 
-import 'stylesheet.scss';
+import 'styles/stylesheet.scss';
 
 // check environment
 const isProduction = process.env.NODE_ENV === 'production';
