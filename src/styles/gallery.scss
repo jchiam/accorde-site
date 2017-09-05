@@ -1,0 +1,46 @@
+.gallery {
+  height: $page-height;
+  padding: 0px 30px;
+
+  .slick-next:before, .slick-prev:before {
+    color: black;
+  }
+
+  img {
+    height: auto;
+    max-width: 100%;
+  }
+}
+
+/* wide width - center photos if screen wider than photos */
+@media screen and (min-width: 1075px) {
+  .gallery {
+    .slick-slide {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+/* wide width - give nav arrows more side margins */
+@media screen and (min-width: 1150px) {
+  .gallery {
+    .slick-next {
+      margin-right: 20px;
+    }
+    
+    .slick-prev {
+      margin-left: 20px;
+    }
+  }
+}
+
+/* very wide aspect ratio - set max height on photos */
+@media screen and (min-aspect-ratio: 10/7) {
+  .gallery {
+    img { 
+      max-height: 70vh; 
+      width: auto; 
+    }
+  }
+}

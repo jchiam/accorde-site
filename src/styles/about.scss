@@ -1,0 +1,124 @@
+.about {
+  min-height: $page-height;
+
+  .container {
+    align-items: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    height: $page-height;
+    justify-content: center;
+  }
+
+  .about-title {
+    color: $highlight-color;
+    font-size: 28pt;
+  }
+
+  .story {
+    color: white;
+    line-height: 150%;
+    padding: 0 50px;
+    text-align: justify;
+  }
+
+  .events {
+    align-items: center;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+
+    .about-title {
+      padding-bottom: 20px;
+    }
+
+    .events-table {
+      border-collapse: collapse;
+
+      tr:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    .event-month {
+      font-size: 140%;
+    }
+
+    .event-year {
+      font-size: 120%;
+    }
+
+    .event-cell {
+      border-top: 2px solid white;
+      border-bottom: 2px solid white;
+      color: white;
+      padding: 20px 10px;
+      position: relative;
+      text-align: center;
+      word-wrap: normal;
+    }
+
+    .event-name {
+      font-size: 130%;
+    }
+
+    .event-sub {
+      margin: 0 30px;
+    }
+
+    .event-more {
+      bottom: 0;
+      color: $highlight-color;
+      font-style: italic;
+      position: absolute;
+      right: 5px;
+    }
+  }
+}
+
+/* narrow width iphone 5 - adjust font sizes */
+@media screen and (max-width: 320px) {
+  .about {
+    .story {
+      font-size: 10pt;
+    }
+  }
+}
+
+/* narrow width iphone 6 - decrease line height*/
+@media screen and (max-width: 375px) {
+  .about {
+    .story {
+      line-height: 125%;
+    }
+  }
+}
+
+/* wide width - adjust font sizes */
+@media screen and (min-width: 675px) {
+  .about {
+    .about-title {
+      font-size: 32pt;
+    }
+
+    .story {
+      font-size: 14pt;
+    }
+  }
+}
+
+/* very wide width - adjust font sizes */
+@media screen and (min-width: 955px) {
+  .about {
+    .about-title {
+      font-size: 36pt;
+    }
+
+    .story {
+      font-size: 16pt;
+      width: 80vw;
+    }
+  }
+}
