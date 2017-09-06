@@ -8,13 +8,15 @@ import { fetchGallery } from 'actions/firebase';
 import { generateImageUrl } from 'utils';
 import DataStates from 'constants/dataStates';
 
+const GALLERY_ERROR_MESSAGE = 'There seems to be an error. Please refresh or try again later.';
+
 class GalleryPage extends Component {
   componentDidMount() {
     const { fetchPhotos } = this.props;
     fetchPhotos();
   }
 
-  render() {
+  renderContents() {
     const { gallery, dataState } = this.props;
     const settings = {
       arrows: true,
@@ -25,17 +27,29 @@ class GalleryPage extends Component {
       slidesToShow: 1,
       slidesToScroll: 1
     };
+
+    if (dataState === DataStates.Error) {
+      return <div>{GALLERY_ERROR_MESSAGE}</div>;
+    }
+
+    return (
+      <Slider {...settings}>
+        {gallery.map(photo => (
+          <div key={photo}>
+            <img src={generateImageUrl(photo, 'q_50,w_1000,ar_16:9,c_fill')} alt="gallery" />
+          </div>
+        ))}
+      </Slider>
+    );
+  }
+
+  render() {
+    const { dataState } = this.props;
     return (
       <div className="gallery">
         <div className="container">
-          <PageLoader className="loader" loaded={dataState === DataStates.Fetched}>
-            <Slider {...settings}>
-              {gallery.map(photo => (
-                <div key={photo}>
-                  <img src={generateImageUrl(photo, 'q_50,w_1000,ar_16:9,c_fill')} alt="gallery" />
-                </div>
-              ))}
-            </Slider>
+          <PageLoader className="loader" loaded={dataState !== DataStates.Fetching}>
+            {this.renderContents()}
           </PageLoader>
         </div>
       </div>

@@ -48,6 +48,7 @@ export function fetchGallery() {
     dispatch({ type: types.FETCHING_GALLERY });
 
     database.ref('/gallery').once('value')
-      .then(snapshot => dispatch({ type: types.FETCH_GALLERY_SUCCESS, photos: snapshot.val() }));
+      .then(snapshot => dispatch({ type: types.FETCH_GALLERY_SUCCESS, photos: snapshot.val() }))
+      .catch(() => dispatch({ type: types.FETCH_GALLERY_ERROR }));
   };
 }
