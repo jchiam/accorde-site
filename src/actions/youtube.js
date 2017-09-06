@@ -3,7 +3,7 @@ import types from 'actions/types';
 
 const YOUTUBE_PLAYLISTS_URL = 'https://www.googleapis.com/youtube/v3/playlistItems';
 
-export function fetchRandomVideo() {
+export default function fetchRandomVideo() {
   return (dispatch) => {
     dispatch({ type: types.FETCHING_YOUTUBE_VIDEO });
 
@@ -33,6 +33,7 @@ export function fetchRandomVideo() {
           video: randomVideoId,
           title: randomVideoTitle
         });
-      });
+      })
+      .catch(() => dispatch({ type: types.FETCH_YOUTUBE_VIDEO_ERROR }));
   };
 }

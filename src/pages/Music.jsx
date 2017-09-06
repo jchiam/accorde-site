@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import Youtube from 'react-youtube';
 
 import PageLoader from 'components/PageLoader';
-import { fetchRandomVideo } from 'actions/youtube';
+import fetchRandomVideo from 'actions/youtube';
 import DataStates from 'constants/dataStates';
 import YoutubeIcon from 'images/youtube.svg';
 
 const HEADER_BAR_HEIGHT = 60;
+const YOUTUBE_ERROR_MESSAGE = 'There seems to be an error. Please refresh or try again later.';
 
 class MusicPage extends Component {
   static generateYoutubeOptions() {
@@ -63,23 +64,36 @@ class MusicPage extends Component {
     }
   }
 
-  render() {
+  renderContents() {
     const { video, title, dataState } = this.props;
     const opts = MusicPage.generateYoutubeOptions();
 
+    if (dataState === DataStates.Error) {
+      return <div>{YOUTUBE_ERROR_MESSAGE}</div>;
+    }
+
+    return (
+      <div>
+        <div className="player-title">{title}</div>
+        <div className="player-container">
+          <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
+        </div>
+        <div className="player-more-info">
+          <button onClick={() => window.open(process.env.YOUTUBE_CHANNEL)}>
+            Visit our YouTube page
+            <YoutubeIcon className="youtube-icon" />
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  render() {
+    const { dataState } = this.props;
     return (
       <div className="music">
-        <PageLoader loaded={dataState === DataStates.Fetched}>
-          <div className="player-title">{title}</div>
-          <div className="player-container">
-            <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
-          </div>
-          <div className="player-more-info">
-            <button onClick={() => window.open(process.env.YOUTUBE_CHANNEL)}>
-              Visit our YouTube page
-              <YoutubeIcon className="youtube-icon" />
-            </button>
-          </div>
+        <PageLoader loaded={dataState !== DataStates.Fetching}>
+          {this.renderContents()}
         </PageLoader>
       </div>
     );
