@@ -44,3 +44,13 @@
     }
   }
 }
+
+/* mobile landscape - center photos */
+@media screen and (min-aspect-ratio: 17/10) {
+  .gallery {
+    .slick-slide {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
