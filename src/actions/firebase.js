@@ -34,12 +34,16 @@ export function fetchAboutUs() {
       events: cb => database.ref('/events').once('value').then(snapshot => cb(null, snapshot.val())),
       photos: cb => database.ref('/photos').once('value').then(snapshot => cb(null, snapshot.val()))
     }, (err, results) => {
-      dispatch({
-        type: types.FETCH_ABOUT_US_SUCCESS,
-        story: results.story,
-        events: results.events,
-        photos: results.photos
-      });
+      if (err) {
+        dispatch({ type: types.FETCH_ABOUT_US_ERROR });
+      } else {
+        dispatch({
+          type: types.FETCH_ABOUT_US_SUCCESS,
+          story: results.story,
+          events: results.events,
+          photos: results.photos
+        });
+      }
     });
   };
 }
