@@ -20,7 +20,8 @@ export function fetchUpcomingEvent() {
     dispatch({ type: types.FETCHING_UPCOMING_EVENT });
 
     database.ref('/upcoming-event').once('value')
-      .then(snapshot => dispatch({ type: types.FETCH_UPCOMING_EVENT_SUCCESS, event: snapshot.val() }));
+      .then(snapshot => dispatch({ type: types.FETCH_UPCOMING_EVENT_SUCCESS, event: snapshot.val() }))
+      .catch(() => dispatch({ type: types.FETCH_UPCOMING_EVENT_ERROR }));
   };
 }
 
