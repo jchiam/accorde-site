@@ -122,3 +122,87 @@
     }
   }
 }
+
+/* mobile landscape iphone 5 - adjust font sizes */
+@media screen and (min-aspect-ratio: 17/10) and (max-height: 320px) {
+  .about {
+    .about-title {
+      font-size: 22pt
+    }
+
+    .story {
+      font-size: 9pt;
+    }
+
+    .events {
+      .about-title {
+        padding-bottom: 5px;
+      }
+
+      .event-cell {
+        font-size: 8pt;
+        padding: 5px 10px;
+      }
+
+      .event-more {
+        font-size: 6pt;
+      }
+    }
+  }
+}
+
+/* mobile landscape iphone 6 - adjust font sizes */
+@media screen and (min-aspect-ratio: 17/10) and (min-height: 321px) and (max-height: 375px) {
+  .about {
+    .about-title {
+      font-size: 24pt
+    }
+
+    .story {
+      font-size: 10pt;
+    }
+
+    .events {
+      .about-title {
+        padding-bottom: 5px;
+      }
+
+      .event-cell {
+        font-size: 10pt;
+        padding: 7px 10px;
+      }
+
+      .event-more {
+        font-size: 8pt;
+      }
+    }
+  }
+}
+
+/* mobile landscape iphone 6 plus - adjust font sizes */
+@media screen and (min-aspect-ratio: 17/10) and (min-height: 376px) {
+  .about {
+    .about-title {
+      font-size: 28pt
+    }
+
+    .story {
+      font-size: 12pt;
+    }
+
+    .events {
+      .about-title {
+        padding-bottom: 5px;
+      }
+
+      .event-cell {
+        font-size: 10pt;
+        padding: 10px 10px;
+      }
+
+      .event-more {
+        font-size: 8pt;
+      }
+    }
+  }
+}
