@@ -86,3 +86,72 @@
     }
   }
 }
+
+/* mobile landscape iphone 5 - adjust font and icon sizes */
+@media screen and (min-aspect-ratio: 17/10) and (max-height: 320px) {
+  .contact {
+    .title {
+      font-size: 28pt;
+      margin-top: 20px;
+    }
+
+    .social-media-container {
+      margin-top: -25px;
+    }
+
+    .social-media {
+      font-size: 8pt;
+    }
+
+    .social-media-icon {
+      height: 70px;
+      width: 70px;
+    }
+  }
+}
+
+/* mobile landscape iphone 6 - adjust font and icon sizes */
+@media screen and (min-aspect-ratio: 17/10) and (min-height: 321px) and (max-height: 375px) {
+  .contact {
+    .title {
+      font-size: 36pt;
+      margin-top: 30px;
+    }
+
+    .social-media-container {
+      margin-top: -30px;
+    }
+
+    .social-media {
+      font-size: 10pt;
+    }
+
+    .social-media-icon {
+      height: 90px;
+      width: 90px;
+    }
+  }
+}
+
+/* mobile landscape iphone 6 plus - adjust font and icon sizes */
+@media screen and (min-aspect-ratio: 17/10) and (min-height: 376px) {
+  .contact {
+    .title {
+      font-size: 40pt;
+      margin-top: 30px;
+    }
+
+    .social-media-container {
+      margin-top: -40px;
+    }
+
+    .social-media {
+      font-size: 10pt;
+    }
+
+    .social-media-icon {
+      height: 100px;
+      width: 100px;
+    }
+  }
+}
