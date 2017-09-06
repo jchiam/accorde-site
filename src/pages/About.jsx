@@ -8,6 +8,8 @@ import { generateImageUrl } from 'utils';
 import Months from 'constants/dates';
 import DataStates from 'constants/dataStates';
 
+const ABOUT_US_ERROR_MESSAGE = 'There seems to be an error. Please refresh or try again later.';
+
 class AboutPage extends Component {
   static parseEventDate(date) {
     const tokenisedDate = date.split('-');
@@ -32,8 +34,13 @@ class AboutPage extends Component {
   }
 
   renderStory() {
-    const { story, photos } = this.props;
+    const { story, photos, dataState } = this.props;
     const storyPhoto = generateImageUrl(photos.story, 'w_1000');
+
+    if (dataState === DataStates.Error) {
+      return <div className="container">{ABOUT_US_ERROR_MESSAGE}</div>;
+    }
+
     /* eslint-disable react/no-danger */
     return (
       <div className="container" style={{ backgroundImage: `url(${storyPhoto})` }}>
@@ -74,8 +81,13 @@ class AboutPage extends Component {
   }
 
   renderEvents() {
-    const { photos } = this.props;
+    const { photos, dataState } = this.props;
     const eventsPhoto = generateImageUrl(photos.events, 'w_1000');
+
+    if (dataState === DataStates.Error) {
+      return <div className="container">{ABOUT_US_ERROR_MESSAGE}</div>;
+    }
+
     return (
       <div className="container" style={{ backgroundImage: `url(${eventsPhoto})` }}>
         <div className="events">
@@ -92,10 +104,10 @@ class AboutPage extends Component {
     const { dataState } = this.props;
     return (
       <div className="about">
-        <PageLoader loaded={dataState === DataStates.Fetched}>
+        <PageLoader loaded={dataState !== DataStates.Fetching}>
           {this.renderStory()}
         </PageLoader>
-        <PageLoader loaded={dataState === DataStates.Fetched}>
+        <PageLoader loaded={dataState !== DataStates.Fetching}>
           {this.renderEvents()}
         </PageLoader>
       </div>

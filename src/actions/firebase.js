@@ -20,7 +20,8 @@ export function fetchUpcomingEvent() {
     dispatch({ type: types.FETCHING_UPCOMING_EVENT });
 
     database.ref('/upcoming-event').once('value')
-      .then(snapshot => dispatch({ type: types.FETCH_UPCOMING_EVENT_SUCCESS, event: snapshot.val() }));
+      .then(snapshot => dispatch({ type: types.FETCH_UPCOMING_EVENT_SUCCESS, event: snapshot.val() }))
+      .catch(() => dispatch({ type: types.FETCH_UPCOMING_EVENT_ERROR }));
   };
 }
 
@@ -33,12 +34,16 @@ export function fetchAboutUs() {
       events: cb => database.ref('/events').once('value').then(snapshot => cb(null, snapshot.val())),
       photos: cb => database.ref('/photos').once('value').then(snapshot => cb(null, snapshot.val()))
     }, (err, results) => {
-      dispatch({
-        type: types.FETCH_ABOUT_US_SUCCESS,
-        story: results.story,
-        events: results.events,
-        photos: results.photos
-      });
+      if (err) {
+        dispatch({ type: types.FETCH_ABOUT_US_ERROR });
+      } else {
+        dispatch({
+          type: types.FETCH_ABOUT_US_SUCCESS,
+          story: results.story,
+          events: results.events,
+          photos: results.photos
+        });
+      }
     });
   };
 }
@@ -48,6 +53,7 @@ export function fetchGallery() {
     dispatch({ type: types.FETCHING_GALLERY });
 
     database.ref('/gallery').once('value')
-      .then(snapshot => dispatch({ type: types.FETCH_GALLERY_SUCCESS, photos: snapshot.val() }));
+      .then(snapshot => dispatch({ type: types.FETCH_GALLERY_SUCCESS, photos: snapshot.val() }))
+      .catch(() => dispatch({ type: types.FETCH_GALLERY_ERROR }));
   };
 }
