@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Youtube from 'react-youtube';
+import MobileDetect from 'mobile-detect';
 
 import PageLoader from 'components/PageLoader';
 import fetchRandomVideo from 'actions/youtube';
 import DataStates from 'constants/dataStates';
 import YoutubeIcon from 'images/youtube.svg';
+
+const md = new MobileDetect(window.navigator.userAgent);
 
 const HEADER_BAR_HEIGHT = 60;
 const YOUTUBE_ERROR_MESSAGE = 'There seems to be an error. Please refresh or try again later.';
@@ -34,11 +37,15 @@ class MusicPage extends Component {
   componentDidMount() {
     const { fetchVideo } = this.props;
     fetchVideo();
-    window.addEventListener('scroll', this.onPlayerPlayback);
+    if (!md.mobile()) {
+      window.addEventListener('scroll', this.onPlayerPlayback);
+    }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.onPlayerPlayback);
+    if (!md.mobile()) {
+      window.removeEventListener('scroll', this.onPlayerPlayback);
+    }
   }
 
 
