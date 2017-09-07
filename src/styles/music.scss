@@ -5,6 +5,10 @@
   justify-content: center;
   padding-top: 20px;
 
+  .loadedContent {
+    width: 80vw;
+  }
+
   .player-title {
     font-size: 24pt;
     margin-bottom: 10px;
@@ -66,6 +70,28 @@
         width: 13pt;
         margin-left: 5px;
       }
+    }
+  }
+}
+
+/* mobile landscape iphone 5 - adjust content to fit */
+@media screen and (min-aspect-ratio: 17/10) and (max-height: 320px) {
+  .music {
+    padding-top: 5px;
+
+    .player-container {
+      padding-bottom: 35%;
+    }
+  }
+}
+
+/* mobile landscape iphone 6 and above - adjust content to fit */
+@media screen and (min-aspect-ratio: 17/10) and (min-height: 321px) {
+  .music {
+    padding-top: 10px;
+
+    .player-container {
+      padding-bottom: 45%;
     }
   }
 }
