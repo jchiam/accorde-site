@@ -180,7 +180,7 @@
 }
 
 /* mobile landscape iphone 6 plus - adjust font sizes */
-@media screen and (min-aspect-ratio: 17/10) and (min-height: 376px) {
+@media screen and (min-aspect-ratio: 17/10) and (min-height: 376px) and (max-width: 736px) {
   .about {
     .about-title {
       font-size: 24pt
