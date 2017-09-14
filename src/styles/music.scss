@@ -86,7 +86,7 @@
 }
 
 /* mobile landscape iphone 6 and above - adjust content to fit */
-@media screen and (min-aspect-ratio: 17/10) and (min-height: 321px) {
+@media screen and (min-aspect-ratio: 17/10) and (min-height: 321px) and (max-width: 736px) {
   .music {
     padding-top: 10px;
 
