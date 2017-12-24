@@ -7,7 +7,7 @@ import Music from 'pages/Music';
 import Gallery from 'pages/Gallery';
 import Contact from 'pages/Contact';
 
-const Element = Scroll.Element;
+const { Element } = Scroll;
 const scroll = Scroll.animateScroll;
 
 export default class Layout extends Component {

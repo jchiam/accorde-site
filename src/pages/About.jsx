@@ -28,6 +28,22 @@ class AboutPage extends Component {
     }
   }
 
+  static renderEvent(event, date) {
+    return (
+      <tr key={JSON.stringify(event)} onClick={() => AboutPage.navigateToLink(event.link)}>
+        <td className="event-cell">
+          <div className="event-month">{date.month}</div>
+          <div className="event-year">{date.year}</div>
+        </td>
+        <td className="event-cell">
+          <div className="event-name">{event.name}</div>
+          <div className="event-sub">{event.sub || null}</div>
+          <div className="event-more">{'Find out more >>'}</div>
+        </td>
+      </tr>
+    );
+  }
+
   componentDidMount() {
     const { fetchContents } = this.props;
     fetchContents();
@@ -60,23 +76,8 @@ class AboutPage extends Component {
     Object.keys(events).forEach((date) => {
       const dateEvents = events[date];
       const parsedDate = AboutPage.parseEventDate(date);
-      dateEvents.forEach(event =>
-        eventRows.push(
-          <tr key={JSON.stringify(event)} onClick={() => AboutPage.navigateToLink(event.link)}>
-            <td className="event-cell">
-              <div className="event-month">{parsedDate.month}</div>
-              <div className="event-year">{parsedDate.year}</div>
-            </td>
-            <td className="event-cell">
-              <div className="event-name">{event.name}</div>
-              <div className="event-sub">{event.sub || null}</div>
-              <div className="event-more">{'Find out more >>'}</div>
-            </td>
-          </tr>
-        )
-      );
+      dateEvents.forEach(event => eventRows.push(AboutPage.renderEvent(event, parsedDate)));
     });
-
     return eventRows;
   }
 
@@ -117,13 +118,11 @@ class AboutPage extends Component {
 
 AboutPage.propTypes = {
   story: PropTypes.string.isRequired,
-  events: PropTypes.objectOf(
-    PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      sub: PropTypes.string,
-      link: PropTypes.string
-    }))
-  ).isRequired,
+  events: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    sub: PropTypes.string,
+    link: PropTypes.string
+  }))).isRequired,
   photos: PropTypes.shape({
     story: PropTypes.string,
     events: PropTypes.string
