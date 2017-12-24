@@ -18,6 +18,8 @@ export default class FacebookIcon extends Component {
         onClick={onClick}
         onMouseOver={() => this.setState({ hovered: true })}
         onMouseOut={() => this.setState({ hovered: false })}
+        onFocus={() => {}}
+        onBlur={() => {}}
       >
         <svg style={{ width: '100%', height: '100%' }} width="176px" height="176px" viewBox="0 0 176 176">
           <g id="Take-2" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
