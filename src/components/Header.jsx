@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Scroll from 'react-scroll';
 
+const Link = Scroll.Link;
 const SCROLL_OFFSET = -60;
 
 export default class Header extends Component {
   static renderHeaderButton(anchor, label) {
     return (
-      <Scroll.Link
+      <Link
         className="header-button"
         activeClass="header-button-selected"
         to={anchor}
@@ -16,7 +17,7 @@ export default class Header extends Component {
         isDynamic
       >
         {label}
-      </Scroll.Link>
+      </Link>
     );
   }
 

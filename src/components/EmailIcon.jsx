@@ -18,8 +18,6 @@ export default class EmailIcon extends Component {
         onClick={onClick}
         onMouseOver={() => this.setState({ hovered: true })}
         onMouseOut={() => this.setState({ hovered: false })}
-        onFocus={() => {}}
-        onBlur={() => {}}
       >
         <svg style={{ width: '100%', height: '100%' }} width="175px" height="175px" viewBox="0 0 175 175">
           <defs>
