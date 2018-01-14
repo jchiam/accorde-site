@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -76,11 +76,11 @@ class MusicPage extends Component {
     const opts = MusicPage.generateYoutubeOptions();
 
     if (dataState === DataStates.Error) {
-      return <div>{YOUTUBE_ERROR_MESSAGE}</div>;
+      return YOUTUBE_ERROR_MESSAGE;
     }
 
     return (
-      <div>
+      <Fragment>
         <div className="player-title">{title}</div>
         <div className="player-container">
           <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
@@ -91,7 +91,7 @@ class MusicPage extends Component {
             <YoutubeIcon className="youtube-icon" />
           </button>
         </div>
-      </div>
+      </Fragment>
     );
   }
 
