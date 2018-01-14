@@ -1,11 +1,10 @@
 {
   "plugins": [
     "react-hot-loader/babel",
-    "transform-object-rest-spread"
+    "@babel/plugin-proposal-object-rest-spread"
   ],
   "presets": [
-    "react",
-    ["env", { "modules": false }],
-    "stage-0"
+    "@babel/preset-react",
+    ["@babel/preset-env", { "modules": false }]
   ]
 }
