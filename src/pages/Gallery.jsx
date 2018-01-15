@@ -29,7 +29,7 @@ class GalleryPage extends Component {
     };
 
     if (dataState === DataStates.Error) {
-      return <div>{GALLERY_ERROR_MESSAGE}</div>;
+      return GALLERY_ERROR_MESSAGE;
     }
 
     return (

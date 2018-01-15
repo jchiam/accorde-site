@@ -38,6 +38,11 @@
 /* very wide aspect ratio - set max height on photos */
 @media screen and (min-aspect-ratio: 10/7) {
   .gallery {
+    .slick-slide {
+      display: flex;
+      justify-content: center;
+    }
+
     img { 
       max-height: 70vh; 
       width: auto; 

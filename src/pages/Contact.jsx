@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Mailto from 'react-mailto';
 
 import YoutubeIcon from 'components/YoutubeIcon';
 import FacebookIcon from 'components/FacebookIcon';
@@ -20,9 +19,9 @@ export default class Contact extends Component {
             Visit Our<br />Facebook Page
           </div>
           <div className="social-media">
-            <Mailto email={process.env.EMAIL}>
+            <a href={`mailto:${process.env.EMAIL}`}>
               <EmailIcon className="social-media-icon" />
-            </Mailto>
+            </a>
             Email Us!
           </div>
         </div>
