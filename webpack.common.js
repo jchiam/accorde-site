@@ -33,6 +33,13 @@ module.exports = {
           priority: 30,
           enforce: true
         },
+        firebase: {
+          name: 'firebase',
+          test: /[\\/]node_modules[\\/]firebase|@firebase[\\/]/,
+          chunks: 'all',
+          priority: 20,
+          enforce: true
+        },
         vendor: {
           name: 'vendor',
           test: /[\\/]node_modules[\\/]/,
