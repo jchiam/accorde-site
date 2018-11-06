@@ -8,7 +8,6 @@ import MobileDetect from 'mobile-detect';
 import PageLoader from 'components/PageLoader';
 import fetchRandomVideo from 'actions/youtube';
 import DataStates from 'constants/dataStates';
-import YoutubeIcon from 'images/youtube.svg';
 
 const md = new MobileDetect(window.navigator.userAgent);
 
@@ -88,7 +87,7 @@ class MusicPage extends Component {
         <div className="player-more-info">
           <button onClick={() => window.open(process.env.YOUTUBE_CHANNEL)}>
             Visit our YouTube page
-            <YoutubeIcon className="youtube-icon" />
+            <img className="youtube-icon" src={require('images/youtube.svg')} />
           </button>
         </div>
       </Fragment>
