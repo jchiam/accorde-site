@@ -5,7 +5,7 @@ prebuild:
 	yarn
 
 build:
-	node_modules/.bin/webpack --config webpack.prod.config.js --progress -p
+	node_modules/.bin/webpack --config webpack.prod.js -p
 
 deploy-staging:
 	firebase use $(STAGING)
