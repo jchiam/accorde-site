@@ -71,6 +71,5 @@ module.exports = merge(common, {
       allChunks: false
     }),
     new CleanWebpackPlugin(['dist'])
-    // new BundleAnalyzerPlugin()
   ]
 });
