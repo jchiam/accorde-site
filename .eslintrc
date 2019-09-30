@@ -1,9 +1,10 @@
 {
   "extends": [
+    "plugin:react/recommended",
     "eslint:recommended",
+    "plugin:import/react",
     "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:react/recommended"
+    "plugin:import/warnings"
   ],
   "env": {
     "browser": true,
@@ -20,6 +21,7 @@
       }
     }
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 2018,

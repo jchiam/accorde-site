@@ -4,7 +4,7 @@ const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -70,6 +70,6 @@ module.exports = merge(common, {
       filename: 'styles-[chunkhash].css',
       allChunks: false
     }),
-    new CleanWebpackPlugin(['dist'])
+    new CleanWebpackPlugin()
   ]
 });

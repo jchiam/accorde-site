@@ -51,6 +51,7 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   event: PropTypes.shape({
+    publish: PropTypes.bool.isRequired,
     image: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     link: PropTypes.string
