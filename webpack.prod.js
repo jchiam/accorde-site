@@ -3,7 +3,7 @@ const path = require('path');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -11,6 +11,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
+  entry: 'index.tsx',
   output: {
     filename: '[name]-[chunkhash].js',
     path: path.resolve(__dirname, 'dist'),
@@ -20,10 +21,7 @@ module.exports = merge(common, {
     rules: [
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader', 'sass-loader', 'import-glob-loader']
-        })
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader', 'import-glob-loader']
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
@@ -49,7 +47,7 @@ module.exports = merge(common, {
   },
   performance: {
     maxEntrypointSize: 1000000,
-    maxAssetSize: 300000
+    maxAssetSize: 400000
   },
   optimization: {
     minimizer: [
@@ -66,9 +64,9 @@ module.exports = merge(common, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new ExtractTextPlugin({
-      filename: 'styles-[chunkhash].css',
-      allChunks: false
+    new MiniCssExtractPlugin({
+      filename: 'assets/[name]-[hash].css',
+      chunkFilename: "[id].css"
     }),
     new CleanWebpackPlugin()
   ]
