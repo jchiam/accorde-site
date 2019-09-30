@@ -4,25 +4,23 @@ This is the repository for Accordé Guitar Ensemble's website. Frontend is writt
 
 ## Project Setup
 
-### React
 1. Install node: `brew install node`
-1. Install yarn: `brew install yarn`
-1. Ensure all dependencies are installed with `yarn`
+1. Ensure all dependencies are installed with `npm install`
 
 ### Linting
 1. ESLint has been hooked to git's pre-push
-1. Run manually: `yarn lint`
+1. Run manually: `npm run lint`
 
 ### Environment Variables
 1. Make a copy of `.env.example` and name it `.env`
 1. Fill in the necessary variables in `.env`
 
 ## Run
-- Run the app with `yarn start`
+- Run the app with `npm start`
 - View the app at [`localhost:8080`](http://localhost:8080)
 
 ## Local Staging
-- Serve local staging with `yarn stage`
+- Serve local staging with `npm run stage`
 - View the staging app at [`localhost:5000`](http://localhost:5000)
 
 ## Deploy
