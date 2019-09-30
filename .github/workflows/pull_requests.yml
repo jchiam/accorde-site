@@ -1,0 +1,41 @@
+name: Check PR
+on: push
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Install Dependencies
+      run: npm install --ignore-scripts && npm rebuild node-sass
+    - name: Build
+      env:
+        FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+        FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+        FIREBASE_DB_URL: ${{ secrets.FIREBASE_DB_URL }}
+        FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+        YOUTUBE_UPLOADS_ID: ${{ secrets.YOUTUBE_UPLOADS_ID }}
+        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        CLOUDINARY_PROXY: ${{ secrets.CLOUDINARY_PROXY }}
+        LOGO: ${{ secrets.LOGO }}
+        FACEBOOK_PAGE: ${{ secrets.FACEBOOK_PAGE }}
+        YOUTUBE_CHANNEL: ${{ secrets.YOUTUBE_CHANNEL }}
+        EMAIL: ${{ secrets.EMAIL }}
+      run: npm run build
+    - name: Lint
+      run: npm run lint
+  
+  security:
+    name: Security
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: NPM Audit
+      run: npm audit
