@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -79,7 +79,7 @@ class MusicPage extends Component {
     }
 
     return (
-      <Fragment>
+      <>
         <div className="player-title">{title}</div>
         <div className="player-container">
           <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
@@ -90,7 +90,7 @@ class MusicPage extends Component {
             <img className="youtube-icon" src={require('images/youtube.svg')} />
           </button>
         </div>
-      </Fragment>
+      </>
     );
   }
 
