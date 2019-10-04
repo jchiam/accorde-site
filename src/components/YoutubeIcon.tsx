@@ -1,8 +1,21 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, FormEvent } from 'react';
 
-export default class YoutubeIcon extends Component {
-  constructor(props) {
+interface YoutubeIconProps {
+  className: string;
+  onClick: (e: FormEvent<Element>) => void;
+}
+
+interface YoutubeIconState {
+  hovered: boolean;
+}
+
+export default class YoutubeIcon extends Component<YoutubeIconProps, YoutubeIconState> {
+  static defaultProps = {
+    className: '',
+    onClick: () => {}
+  }
+
+  constructor(props: YoutubeIconProps) {
     super(props);
     this.state = { hovered: false };
   }
@@ -40,13 +53,3 @@ export default class YoutubeIcon extends Component {
     );
   }
 }
-
-YoutubeIcon.propTypes = {
-  className: PropTypes.string,
-  onClick: PropTypes.func
-};
-
-YoutubeIcon.defaultProps = {
-  className: '',
-  onClick: () => {}
-};

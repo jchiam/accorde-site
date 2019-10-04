@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Slider from 'react-slick';
+import Slider, { LazyLoadTypes } from 'react-slick';
 
 import PageLoader from 'components/PageLoader';
 import { fetchGallery } from 'actions/firebase';
 import { generateImageUrl } from 'utils';
-import DataStates from 'constants/dataStates';
+import { DataStates } from 'constants/dataStates';
+import { State } from 'typings/state';
 
 const GALLERY_ERROR_MESSAGE = 'There seems to be an error. Please refresh or try again later.';
 
-class GalleryPage extends Component {
+interface GalleryPageProps {
+  gallery: Array<string>;
+  dataState: string;
+  fetchPhotos: () => void;
+}
+
+class GalleryPage extends Component<GalleryPageProps> {
   componentDidMount() {
     const { fetchPhotos } = this.props;
     fetchPhotos();
@@ -22,7 +29,7 @@ class GalleryPage extends Component {
       arrows: true,
       dots: true,
       infinite: true,
-      lazyLoad: true,
+      lazyLoad: 'ondemand' as LazyLoadTypes,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1
@@ -57,22 +64,16 @@ class GalleryPage extends Component {
   }
 }
 
-GalleryPage.propTypes = {
-  gallery: PropTypes.arrayOf(PropTypes.string).isRequired,
-  dataState: PropTypes.string.isRequired,
-  fetchPhotos: PropTypes.func.isRequired
-};
-
-function mapStateToProps(state) {
+function mapStateToProps(state: State.AppState) {
   return {
     gallery: state.gallery.photos,
     dataState: state.gallery.dataState
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: Dispatch) {
   return {
-    fetchPhotos: () => dispatch(fetchGallery())
+    fetchPhotos: () => dispatch<any>(fetchGallery())
   };
 }
 

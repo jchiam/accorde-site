@@ -1,17 +1,40 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import PageLoader from 'components/PageLoader';
 import { fetchAboutUs } from 'actions/firebase';
 import { generateImageUrl } from 'utils';
 import Months from 'constants/dates';
-import DataStates from 'constants/dataStates';
+import { DataStates } from 'constants/dataStates';
+import { State } from 'typings/state';
 
 const ABOUT_US_ERROR_MESSAGE = 'There seems to be an error. Please refresh or try again later.';
 
-class AboutPage extends Component {
-  static parseEventDate(date) {
+interface ParsedDate {
+  year: string;
+  month: string;
+}
+
+interface EventItem {
+  name: string;
+  link?: string;
+  sub?: string;
+}
+
+interface AboutPageProps {
+  story: string;
+  events: { [key: string]: Array<EventItem> };
+  photos: {
+    story: string;
+    events: string;
+  };
+  dataState: string;
+  fetchContents: () => void;
+}
+
+class AboutPage extends Component<AboutPageProps> {
+  static parseEventDate(date: string) {
     const tokenisedDate = date.split('-');
     if (tokenisedDate.length === 2) {
       return {
@@ -22,18 +45,18 @@ class AboutPage extends Component {
     return null;
   }
 
-  static navigateToLink(link) {
+  static navigateToLink(link?: string) {
     if (link) {
       window.open(link);
     }
   }
 
-  static renderEvent(event, date) {
+  static renderEvent(event: EventItem, date: Nullable<ParsedDate>) {
     return (
       <tr key={JSON.stringify(event)} onClick={() => AboutPage.navigateToLink(event.link)}>
         <td className="event-cell">
-          <div className="event-month">{date.month}</div>
-          <div className="event-year">{date.year}</div>
+          <div className="event-month">{date ? date.month : ''}</div>
+          <div className="event-year">{date ? date.year : ''}</div>
         </td>
         <td className="event-cell">
           <div className="event-name">{event.name}</div>
@@ -71,7 +94,7 @@ class AboutPage extends Component {
 
   renderEventsTable() {
     const { events } = this.props;
-    const eventRows = [];
+    const eventRows: Array<JSX.Element> = [];
 
     Object.keys(events).forEach((date) => {
       const dateEvents = events[date];
@@ -116,22 +139,7 @@ class AboutPage extends Component {
   }
 }
 
-AboutPage.propTypes = {
-  story: PropTypes.string.isRequired,
-  events: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    sub: PropTypes.string,
-    link: PropTypes.string
-  }))).isRequired,
-  photos: PropTypes.shape({
-    story: PropTypes.string,
-    events: PropTypes.string
-  }).isRequired,
-  dataState: PropTypes.string.isRequired,
-  fetchContents: PropTypes.func.isRequired
-};
-
-function mapStateToProps(state) {
+function mapStateToProps(state: State.AppState) {
   return {
     story: state.about.story,
     events: state.about.events,
@@ -140,9 +148,9 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: Dispatch) {
   return {
-    fetchContents: () => dispatch(fetchAboutUs())
+    fetchContents: () => dispatch<any>(fetchAboutUs())
   };
 }
 

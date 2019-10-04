@@ -1,10 +1,23 @@
 /* eslint-disable max-len */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, FormEvent } from 'react';
 
-export default class FacebookIcon extends Component {
-  constructor(props) {
+interface FacebookIconProps {
+  className: string;
+  onClick: (e: FormEvent<Element>) => void;
+}
+
+interface FacebookIconState {
+  hovered: boolean;
+}
+
+export default class FacebookIcon extends Component<FacebookIconProps, FacebookIconState> {
+  static defaultProps = {
+    className: '',
+    onClick: () => {}
+  }
+
+  constructor(props: FacebookIconProps) {
     super(props);
     this.state = { hovered: false };
   }
@@ -45,13 +58,3 @@ export default class FacebookIcon extends Component {
     );
   }
 }
-
-FacebookIcon.propTypes = {
-  className: PropTypes.string,
-  onClick: PropTypes.func
-};
-
-FacebookIcon.defaultProps = {
-  className: '',
-  onClick: () => {}
-};
