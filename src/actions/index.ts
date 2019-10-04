@@ -26,7 +26,7 @@ export enum GalleryActionKeys {
 
 export const UpcomingActions = {
   fetchingUpcomingEvent: () => createAction(UpcomingActionKeys.FETCHING_UPCOMING_EVENT),
-  fetchUpcomingEventSuccess: (event: { text: string, image: string, link: string, publish: boolean }) =>
+  fetchUpcomingEventSuccess: (event: { text: string; image: string; link: string; publish: boolean }) =>
     createAction(UpcomingActionKeys.FETCH_UPCOMING_EVENT_SUCCESS, event),
   fetchUpcomingEventError: () => createAction(UpcomingActionKeys.FETCH_UPCOMING_EVENT_ERROR)
 };
@@ -34,13 +34,13 @@ export const UpcomingActions = {
 export const AboutActions = {
   fetchingAboutUs: () => createAction(AboutActionKeys.FETCHING_ABOUT_US),
   fetchAboutUsSuccess: (p: {
-    story: string,
+    story: string;
     events: { [key: string]: Array<{
       name: string;
       sub?: string;
       link?: string;
-    }> },
-    photos: { [key: string]: string }
+    }>; };
+    photos: { [key: string]: string };
   }) =>
     createAction(AboutActionKeys.FETCH_ABOUT_US_SUCCESS, p),
   fetchAboutUsError: () => createAction(AboutActionKeys.FETCH_ABOUT_US_ERROR)
@@ -48,7 +48,7 @@ export const AboutActions = {
 
 export const MusicActions = {
   fetchingYoutubeVideo: () => createAction(MusicActionKeys.FETCHING_YOUTUBE_VIDEO),
-  fetchYoutubeVideoSuccess: (v: { video: string, title: string }) => createAction(MusicActionKeys.FETCH_YOUTUBE_VIDEO_SUCCESS, v),
+  fetchYoutubeVideoSuccess: (v: { video: string; title: string }) => createAction(MusicActionKeys.FETCH_YOUTUBE_VIDEO_SUCCESS, v),
   fetchYoutubeVideoError: () => createAction(MusicActionKeys.FETCH_YOUTUBE_VIDEO_ERROR)
 };
 

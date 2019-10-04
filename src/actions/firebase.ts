@@ -44,7 +44,7 @@ export function fetchAboutUs() {
             name: string;
             sub?: string;
             link?: string;
-          }> },
+          }>; },
           photos: results.photos as { [key: string]: string }
         }));
       }

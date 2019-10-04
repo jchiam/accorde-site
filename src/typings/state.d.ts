@@ -23,7 +23,7 @@ export namespace State {
       name: string;
       link?: string;
       sub?: string;
-    }> };
+    }>; };
     photos: {
       story: string;
       events: string;
