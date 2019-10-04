@@ -5,10 +5,6 @@
   justify-content: space-between;
   padding: 0 20px;
 
-  a {
-    cursor: default;
-  }
-
   .title {
     font-size: 64pt;
     line-height: 110%;
@@ -33,6 +29,11 @@
     height: 150px;
     margin-bottom: 20px;
     width: 150px;
+
+    &:hover {
+      cursor: pointer;
+      opacity: .8;
+    }
   }
 
   .footer {
