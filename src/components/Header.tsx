@@ -4,7 +4,7 @@ import Scroll from 'react-scroll';
 const SCROLL_OFFSET = -60;
 
 export default class Header extends Component {
-  static renderHeaderButton(anchor, label) {
+  static renderHeaderButton(anchor: string, label: string) {
     return (
       <Scroll.Link
         className="header-button"

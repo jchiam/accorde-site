@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { fetchUpcomingEvent } from 'actions/firebase';
-import DataStates from 'constants/dataStates';
+import { DataStates } from 'constants/dataStates';
+import { State } from 'typings/state';
 
-class HomePage extends Component {
+interface HomePageProps {
+  event: {
+    publish: boolean;
+    image: string;
+    text: string;
+    link?: string;
+  };
+  dataState: string;
+  fetchEvent: () => void;
+}
+
+class HomePage extends Component<HomePageProps> {
   static renderHomeLogo() {
     return (
       <div className="container">
@@ -49,31 +61,16 @@ class HomePage extends Component {
   }
 }
 
-HomePage.propTypes = {
-  event: PropTypes.shape({
-    publish: PropTypes.bool.isRequired,
-    image: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    link: PropTypes.string
-  }),
-  dataState: PropTypes.string.isRequired,
-  fetchEvent: PropTypes.func.isRequired
-};
-
-HomePage.defaultProps = {
-  event: null
-};
-
-function mapStateToProps(state) {
+function mapStateToProps(state: State.AppState) {
   return {
     event: state.upcoming.event,
     dataState: state.upcoming.dataState
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: Dispatch) {
   return {
-    fetchEvent: () => dispatch(fetchUpcomingEvent())
+    fetchEvent: () => dispatch<any>(fetchUpcomingEvent())
   };
 }
 

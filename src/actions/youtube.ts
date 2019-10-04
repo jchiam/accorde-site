@@ -1,11 +1,12 @@
+import { Dispatch } from 'redux';
 import axios from 'axios';
-import types from 'actions/types';
+import { MusicActions } from 'actions';
 
 const YOUTUBE_PLAYLISTS_URL = 'https://www.googleapis.com/youtube/v3/playlistItems';
 
 export default function fetchRandomVideo() {
-  return (dispatch) => {
-    dispatch({ type: types.FETCHING_YOUTUBE_VIDEO });
+  return (dispatch: Dispatch<MusicActions>) => {
+    dispatch(MusicActions.fetchingYoutubeVideo());
 
     axios.get(
       YOUTUBE_PLAYLISTS_URL,
@@ -28,12 +29,11 @@ export default function fetchRandomVideo() {
           randomVideoTitle = randomVideoTitle.split('|')[0];
         }
 
-        dispatch({
-          type: types.FETCH_YOUTUBE_VIDEO_SUCCESS,
+        dispatch(MusicActions.fetchYoutubeVideoSuccess({
           video: randomVideoId,
           title: randomVideoTitle
-        });
+        }));
       })
-      .catch(() => dispatch({ type: types.FETCH_YOUTUBE_VIDEO_ERROR }));
+      .catch(() => dispatch(MusicActions.fetchYoutubeVideoError()));
   };
 }

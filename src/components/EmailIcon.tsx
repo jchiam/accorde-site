@@ -1,10 +1,23 @@
 /* eslint-disable max-len */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, FormEvent } from 'react';
 
-export default class EmailIcon extends Component {
-  constructor(props) {
+interface EmailIconProps {
+  className: string;
+  onClick: (e: FormEvent<Element>) => void;
+}
+
+interface EmailIconState {
+  hovered: boolean;
+}
+
+export default class EmailIcon extends Component<EmailIconProps, EmailIconState> {
+  static defaultProps = {
+    className: '',
+    onClick: () => {}
+  }
+
+  constructor(props: EmailIconProps) {
     super(props);
     this.state = { hovered: false };
   }
@@ -56,13 +69,3 @@ export default class EmailIcon extends Component {
     );
   }
 }
-
-EmailIcon.propTypes = {
-  className: PropTypes.string,
-  onClick: PropTypes.func
-};
-
-EmailIcon.defaultProps = {
-  className: '',
-  onClick: () => {}
-};

@@ -1,24 +1,38 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Youtube from 'react-youtube';
+import Youtube, { Options } from 'react-youtube';
 import MobileDetect from 'mobile-detect';
 
 import PageLoader from 'components/PageLoader';
 import fetchRandomVideo from 'actions/youtube';
-import DataStates from 'constants/dataStates';
+import { DataStates } from 'constants/dataStates';
+import { State } from 'typings/state';
 
 const md = new MobileDetect(window.navigator.userAgent);
 
 const HEADER_BAR_HEIGHT = 60;
 const YOUTUBE_ERROR_MESSAGE = 'There seems to be an error. Please refresh or try again later.';
 
-class MusicPage extends Component {
-  static generateYoutubeOptions() {
+interface MusicPageProps {
+  video: string;
+  title: string;
+  dataState: string;
+  fetchVideo: () => void;
+}
+
+interface MusicPageState {
+  player: any;
+}
+
+class MusicPage extends Component<MusicPageProps, MusicPageState> {
+  onPlayerPlayback: () => void;
+
+  static generateYoutubeOptions(): Options {
     return {
-      height: 1600,
-      width: 900,
+      height: '1600',
+      width: '900',
       playerVars: { // https://developers.google.com/youtube/player_parameters
         color: 'white',
         rel: 0,
@@ -27,7 +41,7 @@ class MusicPage extends Component {
     };
   }
 
-  constructor(props) {
+  constructor(props: MusicPageProps) {
     super(props);
     this.state = { player: null };
     this.onPlayerPlayback = this.handlePlayerPlayback.bind(this);
@@ -50,7 +64,7 @@ class MusicPage extends Component {
 
   isVisible() {
     // eslint-disable-next-line react/no-find-dom-node
-    const dimensions = ReactDOM.findDOMNode(this).getBoundingClientRect();
+    const dimensions = (ReactDOM.findDOMNode(this) as Element).getBoundingClientRect();
     const { height, top, bottom } = dimensions;
 
     if (bottom > HEADER_BAR_HEIGHT && top < height) {
@@ -106,14 +120,7 @@ class MusicPage extends Component {
   }
 }
 
-MusicPage.propTypes = {
-  video: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  dataState: PropTypes.string.isRequired,
-  fetchVideo: PropTypes.func.isRequired
-};
-
-function mapStateToProps(state) {
+function mapStateToProps(state: State.AppState) {
   return {
     video: state.music.video,
     title: state.music.title,
@@ -121,9 +128,9 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch: Dispatch) {
   return {
-    fetchVideo: () => dispatch(fetchRandomVideo())
+    fetchVideo: () => dispatch<any>(fetchRandomVideo())
   };
 }
 
