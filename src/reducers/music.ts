@@ -2,7 +2,7 @@ import { MusicActionKeys, MusicActions } from 'actions';
 import { DataStates } from 'constants/dataStates';
 import { State } from 'typings/state';
 
-const initialState = {
+const initialState: State.Music = {
   video: '',
   title: '',
   dataState: DataStates.Unfetched

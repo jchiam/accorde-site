@@ -4,15 +4,11 @@ import { connect } from 'react-redux';
 
 import { fetchUpcomingEvent } from 'actions/firebase';
 import { DataStates } from 'constants/dataStates';
+import { Models } from 'typings/models';
 import { State } from 'typings/state';
 
 interface HomePageProps {
-  event: {
-    publish: boolean;
-    image: string;
-    text: string;
-    link?: string;
-  };
+  event: Models.UpcomingEvent;
   dataState: string;
   fetchEvent: () => void;
 }
