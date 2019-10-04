@@ -30,7 +30,6 @@ class HomePage extends Component<HomePageProps> {
   renderUpcomingEvent() {
     const { event, dataState } = this.props;
     if (dataState === DataStates.Fetched && event && event.publish) {
-      /* eslint-disable react/no-danger */
       return (
         <div className="container">
           <div className="upcoming-event">
@@ -42,7 +41,6 @@ class HomePage extends Component<HomePageProps> {
           </div>
         </div>
       );
-      /* eslint-enable react/no-danger */
     }
     return null;
   }
