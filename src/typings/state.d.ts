@@ -1,5 +1,6 @@
-export namespace State {
+import { Models } from 'typings/models';
 
+export namespace State {
   interface AppState {
     upcoming: Upcoming;
     about: About;
@@ -8,22 +9,13 @@ export namespace State {
   }
 
   interface Upcoming {
-    event: {
-      publish: boolean;
-      image: string;
-      text: string;
-      link?: string;
-    };
+    event: Models.UpcomingEvent;
     dataState: string;
   }
 
   interface About {
     story: string;
-    events: { [key: string]: Array<{
-      name: string;
-      link?: string;
-      sub?: string;
-    }>; };
+    events: { [key: string]: Array<Models.Event> };
     photos: {
       story: string;
       events: string;

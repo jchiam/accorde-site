@@ -7,6 +7,7 @@ import { fetchAboutUs } from 'actions/firebase';
 import { generateImageUrl } from 'utils';
 import Months from 'constants/dates';
 import { DataStates } from 'constants/dataStates';
+import { Models } from 'typings/models';
 import { State } from 'typings/state';
 
 const ABOUT_US_ERROR_MESSAGE = 'There seems to be an error. Please refresh or try again later.';
@@ -16,15 +17,9 @@ interface ParsedDate {
   month: string;
 }
 
-interface EventItem {
-  name: string;
-  link?: string;
-  sub?: string;
-}
-
 interface AboutPageProps {
   story: string;
-  events: { [key: string]: Array<EventItem> };
+  events: { [key: string]: Array<Models.Event> };
   photos: {
     story: string;
     events: string;
@@ -51,7 +46,7 @@ class AboutPage extends Component<AboutPageProps> {
     }
   }
 
-  static renderEvent(event: EventItem, date: Nullable<ParsedDate>) {
+  static renderEvent(event: Models.Event, date: Nullable<ParsedDate>) {
     return (
       <tr key={JSON.stringify(event)} onClick={() => AboutPage.navigateToLink(event.link)}>
         <td className="event-cell">
@@ -60,7 +55,7 @@ class AboutPage extends Component<AboutPageProps> {
         </td>
         <td className="event-cell">
           <div className="event-name">{event.name}</div>
-          <div className="event-sub">{event.sub || null}</div>
+          <div className="event-sub">{event.sub}</div>
           <div className="event-more">{'Find out more >>'}</div>
         </td>
       </tr>
@@ -80,7 +75,6 @@ class AboutPage extends Component<AboutPageProps> {
       return <div className="container">{ABOUT_US_ERROR_MESSAGE}</div>;
     }
 
-    /* eslint-disable react/no-danger */
     return (
       <div className="container" style={{ backgroundImage: `url(${storyPhoto})` }}>
         <div className="story" >
@@ -89,7 +83,6 @@ class AboutPage extends Component<AboutPageProps> {
         </div>
       </div>
     );
-    /* eslint-enable react/no-danger */
   }
 
   renderEventsTable() {

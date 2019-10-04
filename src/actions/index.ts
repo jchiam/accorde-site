@@ -1,4 +1,5 @@
 import { createAction } from 'actionHelpers';
+import { Models } from 'typings/models';
 
 export enum UpcomingActionKeys {
   FETCHING_UPCOMING_EVENT = 'FETCHING_UPCOMING_EVENT',
@@ -26,8 +27,7 @@ export enum GalleryActionKeys {
 
 export const UpcomingActions = {
   fetchingUpcomingEvent: () => createAction(UpcomingActionKeys.FETCHING_UPCOMING_EVENT),
-  fetchUpcomingEventSuccess: (event: { text: string; image: string; link: string; publish: boolean }) =>
-    createAction(UpcomingActionKeys.FETCH_UPCOMING_EVENT_SUCCESS, event),
+  fetchUpcomingEventSuccess: (event: Models.UpcomingEvent) => createAction(UpcomingActionKeys.FETCH_UPCOMING_EVENT_SUCCESS, event),
   fetchUpcomingEventError: () => createAction(UpcomingActionKeys.FETCH_UPCOMING_EVENT_ERROR)
 };
 
@@ -35,11 +35,7 @@ export const AboutActions = {
   fetchingAboutUs: () => createAction(AboutActionKeys.FETCHING_ABOUT_US),
   fetchAboutUsSuccess: (p: {
     story: string;
-    events: { [key: string]: Array<{
-      name: string;
-      sub?: string;
-      link?: string;
-    }>; };
+    events: { [key: string]: Array<Models.Event> };
     photos: { [key: string]: string };
   }) =>
     createAction(AboutActionKeys.FETCH_ABOUT_US_SUCCESS, p),
