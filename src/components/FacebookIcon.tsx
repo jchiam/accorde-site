@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 import React, { Component, FormEvent } from 'react';
 
 interface FacebookIconProps {
