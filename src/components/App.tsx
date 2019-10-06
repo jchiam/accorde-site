@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import Header from 'components/Header';
 
-export default class App extends Component {
-  render() {
-    return (
-      <>
-        <Header />
-        {this.props.children}
-      </>
-    );
-  }
-}
+const App = (props: PropsWithChildren<{}>) => (
+  <>
+    <Header />
+    {props.children}
+  </>
+);
+
+export default App;

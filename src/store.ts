@@ -6,13 +6,11 @@ import combinedReducer from 'reducers';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-function generateStore() {
-  return createStore(combinedReducer, applyMiddleware(thunkMiddleware));
-}
+const generateStore = () => createStore(combinedReducer, applyMiddleware(thunkMiddleware));
 
-function generateDevStore() {
+const generateDevStore = () => {
   const logger = createLogger();
   return createStore(combinedReducer, applyMiddleware(thunkMiddleware, logger));
-}
+};
 
 export default isProduction ? generateStore() : generateDevStore();

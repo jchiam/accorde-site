@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Slider, { LazyLoadTypes } from 'react-slick';
@@ -17,30 +17,27 @@ interface GalleryPageProps {
   fetchPhotos: () => void;
 }
 
-class GalleryPage extends Component<GalleryPageProps> {
-  componentDidMount() {
-    const { fetchPhotos } = this.props;
-    fetchPhotos();
-  }
+const GalleryPage = (props: GalleryPageProps) => {
+  const { gallery, dataState, fetchPhotos } = props;
 
-  renderContents() {
-    const { gallery, dataState } = this.props;
-    const settings = {
-      arrows: true,
-      dots: true,
-      infinite: true,
-      lazyLoad: 'ondemand' as LazyLoadTypes,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1
-    };
+  useEffect(() => { fetchPhotos(); }, []);   // eslint-disable-line react-hooks/exhaustive-deps
 
+  const sliderSettings = {
+    arrows: true,
+    dots: true,
+    infinite: true,
+    lazyLoad: 'ondemand' as LazyLoadTypes,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+
+  const renderContents = () => {
     if (dataState === DataStates.Error) {
       return GALLERY_ERROR_MESSAGE;
     }
-
     return (
-      <Slider {...settings}>
+      <Slider {...sliderSettings}>
         {gallery.map(photo => (
           <div key={photo}>
             <img src={generateImageUrl(photo, 'q_50,w_1000,ar_16:9,c_fill')} alt="gallery" />
@@ -50,32 +47,25 @@ class GalleryPage extends Component<GalleryPageProps> {
     );
   }
 
-  render() {
-    const { dataState } = this.props;
-    return (
-      <div className="gallery">
-        <div className="container">
-          <PageLoader className="loader" loaded={dataState !== DataStates.Fetching}>
-            {this.renderContents()}
-          </PageLoader>
-        </div>
+  return (
+    <div className="gallery">
+      <div className="container">
+        <PageLoader className="loader" loaded={dataState !== DataStates.Fetching}>
+          {renderContents()}
+        </PageLoader>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-function mapStateToProps(state: State.AppState) {
-  return {
-    gallery: state.gallery.photos,
-    dataState: state.gallery.dataState
-  };
-}
+const mapStateToProps = (state: State.AppState) => ({
+  gallery: state.gallery.photos,
+  dataState: state.gallery.dataState
+});
 
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    fetchPhotos: () => dispatch<any>(fetchGallery())
-  };
-}
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  fetchPhotos: () => dispatch<any>(fetchGallery())
+});
 
 export default connect(
   mapStateToProps,
