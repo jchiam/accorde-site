@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
@@ -28,8 +28,18 @@ interface AboutPageProps {
   fetchContents: () => void;
 }
 
-class AboutPage extends Component<AboutPageProps> {
-  static parseEventDate(date: string) {
+const AboutPage = (props: AboutPageProps) => {
+  const { story, events, photos, dataState, fetchContents } = props;
+
+  useEffect(() => { fetchContents(); }, []);   // eslint-disable-line react-hooks/exhaustive-deps
+
+  const navigateToLink = (link?: string) => {
+    if (link) {
+      window.open(link);
+    }
+  };
+
+  const parseEventDate = (date: string) => {
     const tokenisedDate = date.split('-');
     if (tokenisedDate.length === 2) {
       return {
@@ -38,37 +48,23 @@ class AboutPage extends Component<AboutPageProps> {
       };
     }
     return null;
-  }
+  };
 
-  static navigateToLink(link?: string) {
-    if (link) {
-      window.open(link);
-    }
-  }
+  const renderEvent = (event: Models.Event, date: Nullable<ParsedDate>) => (
+    <tr key={JSON.stringify(event)} onClick={() => navigateToLink(event.link)}>
+      <td className="event-cell">
+        <div className="event-month">{date ? date.month : ''}</div>
+        <div className="event-year">{date ? date.year : ''}</div>
+      </td>
+      <td className="event-cell">
+        <div className="event-name">{event.name}</div>
+        <div className="event-sub">{event.sub}</div>
+        <div className="event-more">{'Find out more >>'}</div>
+      </td>
+    </tr>
+  );
 
-  static renderEvent(event: Models.Event, date: Nullable<ParsedDate>) {
-    return (
-      <tr key={JSON.stringify(event)} onClick={() => AboutPage.navigateToLink(event.link)}>
-        <td className="event-cell">
-          <div className="event-month">{date ? date.month : ''}</div>
-          <div className="event-year">{date ? date.year : ''}</div>
-        </td>
-        <td className="event-cell">
-          <div className="event-name">{event.name}</div>
-          <div className="event-sub">{event.sub}</div>
-          <div className="event-more">{'Find out more >>'}</div>
-        </td>
-      </tr>
-    );
-  }
-
-  componentDidMount() {
-    const { fetchContents } = this.props;
-    fetchContents();
-  }
-
-  renderStory() {
-    const { story, photos, dataState } = this.props;
+  const renderStory = () => {
     const storyPhoto = generateImageUrl(photos.story, 'w_1000');
 
     if (dataState === DataStates.Error) {
@@ -83,22 +79,19 @@ class AboutPage extends Component<AboutPageProps> {
         </div>
       </div>
     );
-  }
+  };
 
-  renderEventsTable() {
-    const { events } = this.props;
+  const renderEventsTable = () => {
     const eventRows: Array<JSX.Element> = [];
 
     Object.keys(events).forEach((date) => {
       const dateEvents = events[date];
-      const parsedDate = AboutPage.parseEventDate(date);
-      dateEvents.forEach(event => eventRows.push(AboutPage.renderEvent(event, parsedDate)));
+      dateEvents.forEach(event => eventRows.push(renderEvent(event, parseEventDate(date))));
     });
     return eventRows;
-  }
+  };
 
-  renderEvents() {
-    const { photos, dataState } = this.props;
+  const renderEvents = () => {
     const eventsPhoto = generateImageUrl(photos.events, 'w_1000');
 
     if (dataState === DataStates.Error) {
@@ -110,42 +103,35 @@ class AboutPage extends Component<AboutPageProps> {
         <div className="events">
           <div className="about-title">EVENT HIGHLIGHTS</div>
           <table className="events-table">
-            <tbody>{this.renderEventsTable()}</tbody>
+            <tbody>{renderEventsTable()}</tbody>
           </table>
         </div>
       </div>
     );
-  }
-
-  render() {
-    const { dataState } = this.props;
-    return (
-      <div className="about">
-        <PageLoader loaded={dataState !== DataStates.Fetching}>
-          {this.renderStory()}
-        </PageLoader>
-        <PageLoader loaded={dataState !== DataStates.Fetching}>
-          {this.renderEvents()}
-        </PageLoader>
-      </div>
-    );
-  }
-}
-
-function mapStateToProps(state: State.AppState) {
-  return {
-    story: state.about.story,
-    events: state.about.events,
-    photos: state.about.photos,
-    dataState: state.about.dataState
   };
-}
 
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    fetchContents: () => dispatch<any>(fetchAboutUs())
-  };
-}
+  return (
+    <div className="about">
+      <PageLoader loaded={dataState !== DataStates.Fetching}>
+        {renderStory()}
+      </PageLoader>
+      <PageLoader loaded={dataState !== DataStates.Fetching}>
+        {renderEvents()}
+      </PageLoader>
+    </div>
+  );
+};
+
+const mapStateToProps = (state: State.AppState) => ({
+  story: state.about.story,
+  events: state.about.events,
+  photos: state.about.photos,
+  dataState: state.about.dataState
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  fetchContents: () => dispatch<any>(fetchAboutUs())
+});
 
 export default connect(
   mapStateToProps,

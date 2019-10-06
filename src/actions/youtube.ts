@@ -4,7 +4,7 @@ import { MusicActions } from 'actions';
 
 const YOUTUBE_PLAYLISTS_URL = 'https://www.googleapis.com/youtube/v3/playlistItems';
 
-export default function fetchRandomVideo() {
+export const fetchRandomVideo = () => {
   return (dispatch: Dispatch<MusicActions>) => {
     dispatch(MusicActions.fetchingYoutubeVideo());
 

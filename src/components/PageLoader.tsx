@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import Loader from 'react-loader';
 
 const LOADER_COLOR = '#4990E2';
@@ -9,17 +9,15 @@ interface PageLoaderProps {
   children: ReactNode;
 }
 
-export default class PageLoader extends Component<PageLoaderProps> {
-  static defaultProps = {
-    loaded: true,
-  }
+const PageLoader = ({ className, loaded = true, children }: PageLoaderProps) => (
+  <Loader
+    className={className}
+    loaded={loaded}
+    position="relative"
+    color={LOADER_COLOR}
+  >
+    {children}
+  </Loader>
+);
 
-  render() {
-    const { className, loaded, children } = this.props;
-    return (
-      <Loader className={className} loaded={loaded} position="relative" color={LOADER_COLOR}>
-        {children}
-      </Loader>
-    );
-  }
-}
+export default PageLoader;

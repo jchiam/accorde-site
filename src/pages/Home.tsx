@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
@@ -13,22 +13,18 @@ interface HomePageProps {
   fetchEvent: () => void;
 }
 
-class HomePage extends Component<HomePageProps> {
-  static renderHomeLogo() {
-    return (
-      <div className="container">
-        <img className="logo" src={process.env.LOGO} alt="logo" />
-      </div>
-    );
-  }
+const HomePage = (props: HomePageProps) => {
+  const { event, dataState, fetchEvent } = props;
 
-  componentDidMount() {
-    const { fetchEvent } = this.props;
-    fetchEvent();
-  }
+  useEffect(() => { fetchEvent(); }, []);   // eslint-disable-line react-hooks/exhaustive-deps
 
-  renderUpcomingEvent() {
-    const { event, dataState } = this.props;
+  const homeLogo = (
+    <div className="container">
+      <img className="logo" src={process.env.LOGO} alt="logo" />
+    </div>
+  );
+
+  const renderUpcomingEvent = () => {
     if (dataState === DataStates.Fetched && event && event.publish) {
       return (
         <div className="container">
@@ -45,28 +41,22 @@ class HomePage extends Component<HomePageProps> {
     return null;
   }
 
-  render() {
-    return (
-      <div className="home">
-        {HomePage.renderHomeLogo()}
-        {this.renderUpcomingEvent()}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="home">
+      {homeLogo}
+      {renderUpcomingEvent()}
+    </div>
+  );
+};
 
-function mapStateToProps(state: State.AppState) {
-  return {
-    event: state.upcoming.event,
-    dataState: state.upcoming.dataState
-  };
-}
+const mapStateToProps = (state: State.AppState) => ({
+  event: state.upcoming.event,
+  dataState: state.upcoming.dataState
+});
 
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    fetchEvent: () => dispatch<any>(fetchUpcomingEvent())
-  };
-}
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  fetchEvent: () => dispatch<any>(fetchUpcomingEvent())
+});
 
 export default connect(
   mapStateToProps,

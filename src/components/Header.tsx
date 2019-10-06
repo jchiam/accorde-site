@@ -1,36 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Scroll from 'react-scroll';
 
 const SCROLL_OFFSET = -60;
 
-export default class Header extends Component {
-  static renderHeaderButton(anchor: string, label: string) {
-    return (
-      <Scroll.Link
-        className="header-button"
-        activeClass="header-button-selected"
-        to={anchor}
-        offset={SCROLL_OFFSET}
-        spy
-        smooth
-        isDynamic
-      >
-        {label}
-      </Scroll.Link>
-    );
-  }
+const Header = () => {
+  const renderHeaderButton = (anchor: string, label: string) => (
+    <Scroll.Link
+      className="header-button"
+      activeClass="header-button-selected"
+      to={anchor}
+      offset={SCROLL_OFFSET}
+      spy
+      smooth
+      isDynamic
+    >
+      {label}
+    </Scroll.Link>
+  );
 
-  render() {
-    return (
-      <div className="header-container">
-        <div className="header">
-          {Header.renderHeaderButton('home', 'HOME')}
-          {Header.renderHeaderButton('about', 'ABOUT')}
-          {Header.renderHeaderButton('music', 'MUSIC')}
-          {Header.renderHeaderButton('gallery', 'GALLERY')}
-          {Header.renderHeaderButton('contact', 'CONTACT')}
-        </div>
+  return (
+    <div className="header-container">
+      <div className="header">
+        {renderHeaderButton('home', 'HOME')}
+        {renderHeaderButton('about', 'ABOUT')}
+        {renderHeaderButton('music', 'MUSIC')}
+        {renderHeaderButton('gallery', 'GALLERY')}
+        {renderHeaderButton('contact', 'CONTACT')}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default Header;

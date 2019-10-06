@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
@@ -6,7 +6,7 @@ import Youtube, { Options } from 'react-youtube';
 import MobileDetect from 'mobile-detect';
 
 import PageLoader from 'components/PageLoader';
-import fetchRandomVideo from 'actions/youtube';
+import { fetchRandomVideo } from 'actions/youtube';
 import { DataStates } from 'constants/dataStates';
 import { State } from 'typings/state';
 
@@ -22,49 +22,26 @@ interface MusicPageProps {
   fetchVideo: () => void;
 }
 
-interface MusicPageState {
-  player: any;
-}
-
-class MusicPage extends Component<MusicPageProps, MusicPageState> {
-  onPlayerPlayback: () => void;
-
-  static generateYoutubeOptions(): Options {
-    return {
-      height: '1600',
-      width: '900',
-      playerVars: { // https://developers.google.com/youtube/player_parameters
-        color: 'white',
-        rel: 0,
-        showinfo: 0
-      }
-    };
+const youtubeOptions: Options = {
+  height: '1600',
+  width: '900',
+  playerVars: { // https://developers.google.com/youtube/player_parameters
+    color: 'white',
+    rel: 0,
+    showinfo: 0
   }
+};
 
-  constructor(props: MusicPageProps) {
-    super(props);
-    this.state = { player: null };
-    this.onPlayerPlayback = this.handlePlayerPlayback.bind(this);
-  }
+const MusicPage = (props: MusicPageProps) => {
+  let musicPage: Nullable<HTMLDivElement> = null;
 
-  componentDidMount() {
-    const { fetchVideo } = this.props;
-    fetchVideo();
-    if (!md.mobile()) {
-      window.addEventListener('scroll', this.onPlayerPlayback);
-    }
-  }
+  const [player, updatePlayer] = useState(null as any);
 
-  componentWillUnmount() {
-    if (!md.mobile()) {
-      window.removeEventListener('scroll', this.onPlayerPlayback);
-    }
-  }
+  const { video, title, dataState, fetchVideo } = props;
 
-
-  isVisible() {
+  const isVisible = () => {
     // eslint-disable-next-line react/no-find-dom-node
-    const dimensions = (ReactDOM.findDOMNode(this) as Element).getBoundingClientRect();
+    const dimensions = (ReactDOM.findDOMNode(musicPage) as Element).getBoundingClientRect();
     const { height, top, bottom } = dimensions;
 
     if (bottom > HEADER_BAR_HEIGHT && top < height) {
@@ -73,30 +50,35 @@ class MusicPage extends Component<MusicPageProps, MusicPageState> {
     return false;
   }
 
-  handlePlayerPlayback() {
-    const { player } = this.state;
+  const onPlayerPlayback = () => {
     if (player) {
-      if (this.isVisible()) {
+      if (isVisible()) {
         player.playVideo();
       } else {
         player.pauseVideo();
       }
     }
-  }
+  };
 
-  renderContents() {
-    const { video, title, dataState } = this.props;
-    const opts = MusicPage.generateYoutubeOptions();
+  useEffect(() => { fetchVideo(); }, []);   // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (!md.mobile()) {
+      window.addEventListener('scroll', onPlayerPlayback);
+
+      return () => window.removeEventListener('scroll', onPlayerPlayback);
+    }
+  }, []);      // eslint-disable-line react-hooks/exhaustive-deps
+
+  const renderContents = () => {
     if (dataState === DataStates.Error) {
       return YOUTUBE_ERROR_MESSAGE;
     }
-
     return (
       <>
         <div className="player-title">{title}</div>
         <div className="player-container">
-          <Youtube videoId={video} opts={opts} onReady={event => this.setState({ player: event.target })} />
+          <Youtube videoId={video} opts={youtubeOptions} onReady={event => updatePlayer(event.target)} />
         </div>
         <div className="player-more-info">
           <button onClick={() => window.open(process.env.YOUTUBE_CHANNEL)}>
@@ -106,33 +88,26 @@ class MusicPage extends Component<MusicPageProps, MusicPageState> {
         </div>
       </>
     );
-  }
-
-  render() {
-    const { dataState } = this.props;
-    return (
-      <div className="music">
-        <PageLoader loaded={dataState !== DataStates.Fetching}>
-          {this.renderContents()}
-        </PageLoader>
-      </div>
-    );
-  }
-}
-
-function mapStateToProps(state: State.AppState) {
-  return {
-    video: state.music.video,
-    title: state.music.title,
-    dataState: state.music.dataState
   };
-}
 
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    fetchVideo: () => dispatch<any>(fetchRandomVideo())
-  };
-}
+  return (
+    <div className="music" ref={page => { musicPage = page; }}>
+      <PageLoader loaded={dataState !== DataStates.Fetching}>
+        {renderContents()}
+      </PageLoader>
+    </div>
+  );
+};
+
+const mapStateToProps = (state: State.AppState) => ({
+  video: state.music.video,
+  title: state.music.title,
+  dataState: state.music.dataState
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  fetchVideo: () => dispatch<any>(fetchRandomVideo())
+});
 
 export default connect(
   mapStateToProps,
