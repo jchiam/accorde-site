@@ -147,8 +147,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
   };
 }
 
-const About = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(AboutPage);
-export default About;

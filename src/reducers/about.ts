@@ -12,7 +12,7 @@ const initialState: State.About = {
   dataState: DataStates.Unfetched
 };
 
-export default (state = initialState, action: AboutActions): State.About =>  {
+export default (state = initialState, action: AboutActions): State.About => {
   switch (action.type) {
     case AboutActionKeys.FETCHING_ABOUT_US:
       return {

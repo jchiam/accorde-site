@@ -134,8 +134,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
   };
 }
 
-const Music = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(MusicPage);
-export default Music;
