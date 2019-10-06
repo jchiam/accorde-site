@@ -15,5 +15,4 @@ function generateDevStore() {
   return createStore(combinedReducer, applyMiddleware(thunkMiddleware, logger));
 }
 
-const store = isProduction ? generateStore() : generateDevStore();
-export default store;
+export default isProduction ? generateStore() : generateDevStore();

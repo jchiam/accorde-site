@@ -68,8 +68,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
   };
 }
 
-const Home = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(HomePage);
-export default Home;

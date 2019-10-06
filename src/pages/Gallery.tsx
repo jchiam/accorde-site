@@ -77,8 +77,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
   };
 }
 
-const Gallery = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(GalleryPage);
-export default Gallery;
